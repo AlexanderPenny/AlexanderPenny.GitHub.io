@@ -1,5 +1,5 @@
-GET PRO VERSION HERE:
-https://templatesjungle.gumroad.com/l/styletrim
+GET PRO HERE:
+https://templatesjungle.gumroad.com/l/jetwash
 
 
 It is a premium HTML CSS template by TemplatesJungle.com

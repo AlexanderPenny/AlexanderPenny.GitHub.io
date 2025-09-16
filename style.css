@@ -1,9 +1,9 @@
 /*
-Theme Name: Beauty - Beauty and Nail Salon Website Template
+Theme Name: JetWash
 Theme URI: https://templatesjungle.com/
 Author: TemplatesJungle
 Author URI: https://templatesjungle.com/
-Description: Beauty is specially designed product packaged for Beauty and Nail Salon by TemplatesJungle.
+Description: JetWash is specially designed product packaged for Pressure Washing Company by TemplatesJungle.
 Version: 1.1
 */
 
@@ -35,60 +35,54 @@ CSS STRUCTURE:
 
 3. CONTENT ELEMENTS
   - Dropdown
-  - Breadcrumbs
   - Form
   - Svg Color
-  - Swiper
-  - Zoom Effect
-  - Pagination
+- Swiper
+- Modal
 
 4. SITE STRUCTURE
   4.1 Header
   4.2 Slider Section
-  4.3 Our Services
-  4.4 About Section
-  4.5 Popular Products Section
-  4.6 Footer Section
+  4.3 About Section
+  4.4 Services Section
+  4.5 Projects Section
 
-5. OTHER PAGES STYLE
-  5.1 Faqs Page
-  5.2 Price Plan page
-  5.3 Team page
-  5.4 Reviews page
-  5.5 Single Product page
+5. PAGES STYLE
+  5.1 About page
+  5.2 Blog page 
+  5.3 Pricing page 
+  5.4 reviews page
+  5.5 faqs page 
 
-    
+  
 /*--------------------------------------------------------------
 /** 1. VARIABLES
 --------------------------------------------------------------*/
 :root {
-  --accent-color: #11120D;
-  --secondary-color: #796d4c;
-  --black-color: #3C3C3C;
-  --light-black-color: #343536;
-  --dark-color: #797876;
-  --primary-color: #11120D;
+  --primary-color: #0AA1D6;
+  --secondary-color: #0B306E;
+  --black-color: #1A2A36;
+  --light-black-color: #4E4C49;
+  --dark-color: #9B9B9B;
   --primary-color-200: #E8F0F1;
   --primary-color-400: #c4e9ed;
   --gray-color: #777F81;
-  --light-color: #FFFFFF;
-
-  --bs-dark-rgb: 87, 87, 87;
-  --bs-gray-100: #EEEFEF;
+  --bs-dark-rgb: 80, 80, 80;
+  --bs-gray-100: #EAE5DD;
   --bs-gray-300: #DCDCDC;
   --bs-primary-text-emphasis: var(--primary-color);
-  --bs-primary: #11120D;
-  --bs-light-rgb: 255, 255, 255;
-  --bs-primary-rgb: 17, 18, 13;
-  --bs-secondary-rgb: 121, 109, 76;
+  --bs-light-rgb: rgba(255, 255, 255, 1);
+  --bs-primary-rgb: 10, 161, 214;
+  --bs-secondary-rgb: 11, 48, 110;
+  --light-color: #fdfdfd;
   --swiper-theme-color: #111 !important;
   --cadet-blue-color: #9AB4B7;
 }
 
 /* Fonts */
 :root {
-  --heading-font: "Oswald", sans-serif;
-  --body-font: "Source Sans 3", sans-serif;
+  --heading-font: "Montserrat", sans-serif;
+  --body-font: "Hind", sans-serif;
 }
 
 /*----------------------------------------------*/
@@ -110,12 +104,11 @@ html {
 }
 
 body {
-  background-color: #ffffff;
   font-family: var(--body-font);
-  font-size: 18px;
+  font-size: 16px;
   font-weight: 400;
   line-height: 164%;
-  letter-spacing: 0.40px;
+  letter-spacing: 0.32px;
   color: var(--dark-color);
   margin: 0;
 }
@@ -134,6 +127,43 @@ a:hover {
   color: var(--primary-color);
 }
 
+.text-light {
+  color: var(--light-color) !important;
+}
+
+.text-primary {
+  color: var(--primary-color) !important;
+}
+
+.text-black {
+  color: var(--black-color) !important;
+}
+
+/* 2.2 Background Color
+/*----------------------------------------------*/
+.bg-light {
+  background-color: var(--light-color) !important;
+}
+
+.bg-primary {
+  background-color: var(--primary-color) !important;
+}
+
+.bg-gray {
+  background-color: var(--bs-gray-100) !important;
+}
+
+.bg-accent-gradient {
+  background: linear-gradient(90deg, #18A7E4 0%, #1BADEC 0.01%, #0A9CDB 100%);
+}
+
+.bg-primary-200 {
+  background-color: var(--primary-color-200) !important;
+}
+
+.bg-primary-dim {
+  background-color: var(--bs-primary-rgb) !important;
+}
 
 /*--------------------------------------------------------------
 /** 2.3 Section
@@ -141,18 +171,30 @@ a:hover {
 /* - Section Padding
 --------------------------------------------------------------*/
 .padding-small {
-  padding-top: 6em;
-  padding-bottom: 6em;
+  padding-top: 8em;
+  padding-bottom: 8em;
 }
 
 .padding-medium {
-  padding-top: 6em;
-  padding-bottom: 6em;
+  padding-top: 10em;
+  padding-bottom: 10em;
 }
 
 .padding-large {
   padding-top: 12em;
   padding-bottom: 12em;
+}
+
+@media only screen and (max-width: 700px) {
+  .padding-medium {
+    padding-top: 8em;
+    padding-bottom: 8em;
+  }
+
+  .padding-small {
+    padding-top: 4em;
+    padding-bottom: 4em;
+  }
 }
 
 /* - Section Margin
@@ -184,8 +226,16 @@ h6 {
   color: var(--black-color);
   font-family: var(--heading-font);
   text-transform: capitalize;
+  font-weight: 700;
+  letter-spacing: 0.84px;
+  line-height: 115%;
+}
+
+h6 {
+  color: var(--light-black-color);
+  font-family: var(--body-font);
   font-weight: 500;
-  letter-spacing: 0.0675rem;
+  text-transform: uppercase;
 }
 
 
@@ -199,25 +249,74 @@ h6 {
   max-width: 1750px;
 }
 
+/* Animation */
+@media (min-width: 200px) {
+  .animate {
+    animation-duration: 0.3s;
+    -webkit-animation-duration: 0.3s;
+    animation-fill-mode: both;
+    -webkit-animation-fill-mode: both;
+  }
+}
+
+/* Animate Slide */
+@keyframes slide {
+  0% {
+    transform: translateY(1rem);
+    opacity: 0;
+  }
+
+  100% {
+    transform: translateY(0rem);
+    opacity: 1;
+  }
+
+  0% {
+    transform: translateY(1rem);
+    opacity: 0;
+  }
+}
+
+@-webkit-keyframes slide {
+  0% {
+    -webkit-transform: transform;
+    -webkit-opacity: 0;
+  }
+
+  100% {
+    -webkit-transform: translateY(0);
+    -webkit-opacity: 1;
+  }
+
+  0% {
+    -webkit-transform: translateY(1rem);
+    -webkit-opacity: 0;
+  }
+}
+
+.slide {
+  -webkit-animation-name: slide;
+  animation-name: slide;
+}
 
 /*--------------------------------------------------------------
 /** 2.4 Buttons
 --------------------------------------------------------------*/
-
 .btn {
-  padding: 15px 35px;
+  --bs-btn-padding-x: 2.2rem;
+  --bs-btn-padding-y: 0.8rem;
+  --bs-btn-font-size: 1rem;
+  --bs-btn-font-weight: 400;
   text-transform: uppercase;
+  border-radius: 0px;
+  letter-spacing: 0.1rem;
   transition: all 0.4s ease-in-out;
-  font-weight: 500;
-  letter-spacing: 0.0675rem;
-  border-radius: 0;
 }
 
-/* Primary Buttons */
 .btn-primary {
   --bs-btn-color: #fff;
-  --bs-btn-bg: var(--accent-color);
-  --bs-btn-border-color: var(--accent-color);
+  --bs-btn-bg: var(--primary-color);
+  --bs-btn-border-color: var(--primary-color);
   --bs-btn-hover-color: #fff;
   --bs-btn-hover-bg: var(--secondary-color);
   --bs-btn-hover-border-color: var(--secondary-color);
@@ -228,33 +327,27 @@ h6 {
   --bs-btn-active-shadow: inset 0 3px 5px rgba(0, 0, 0, 0.125);
   --bs-btn-disabled-color: #fff;
   --bs-btn-disabled-bg: var(--secondary-color);
-  --bs-btn-disabled-border-color: #df808f;
+  --bs-btn-disabled-border-color: var(--secondary-color);
 }
 
 .btn-outline-primary {
-  --bs-btn-color: var(--accent-color);
-  --bs-btn-border-color: var(--accent-color);
+  --bs-btn-color: var(--primary-color);
+  --bs-btn-border-color: var(--primary-color);
   --bs-btn-hover-color: #fff;
-  --bs-btn-hover-bg: var(--accent-color);
-  --bs-btn-hover-border-color: var(--accent-color);
+  --bs-btn-hover-bg: var(--primary-color);
+  --bs-btn-hover-border-color: var(--primary-color);
   --bs-btn-focus-shadow-rgb: 13, 110, 253;
   --bs-btn-active-color: #fff;
-  --bs-btn-active-bg: var(--accent-color);
-  --bs-btn-active-border-color: var(--accent-color);
+  --bs-btn-active-bg: var(--primary-color);
+  --bs-btn-active-border-color: var(--primary-color);
   --bs-btn-active-shadow: inset 0 3px 5px rgba(0, 0, 0, 0.125);
-  --bs-btn-disabled-color: var(--accent-color);
+  --bs-btn-disabled-color: var(--primary-color);
   --bs-btn-disabled-bg: transparent;
-  --bs-btn-disabled-border-color: var(--accent-color);
+  --bs-btn-disabled-border-color: var(--primary-color);
   --bs-gradient: none;
 }
 
-.btn-check:active+.btn-primary:focus,
-.btn-check:checked+.btn-primary:focus,
-.btn-primary.active:focus,
-.btn-primary:active:focus,
-.show>.btn-primary.dropdown-toggle:focus {
-  box-shadow: none;
-}
+
 
 /*--------------------------------------------------------------
 /** 3.CONTENT ELEMENTS
@@ -263,36 +356,26 @@ h6 {
 /* Dropdown
 ------------------------------------------------------------- */
 .dropdown-item {
-  color: var(--black-color);
-  font-family: var(--heading-font);
-  font-weight: 300;
-  /* padding: 0px 18px; */
-  font-size: 16px;
+  color: var(--dark-color);
 }
 
 .dropdown-item.active,
 .dropdown-item:active {
-  color: var(--bs-dropdown-link-hover-color);
   text-decoration: none;
-  background-color: var(--bs-dropdown-link-hover-bg);
-}
-
-/* Breadcrumb
-------------------------------------------------------------- */
-.breadcrumb-item+.breadcrumb-item::before {
   color: var(--light-color);
+  background-color: var(--primary-color);
 }
 
 /* Form
 ------------------------------------------------------------- */
 .form-check-input:checked {
-  background-color: var(--accent-color);
-  border-color: var(--accent-color);
+  background-color: var(--primary-color);
+  border-color: var(--primary-color);
   box-shadow: none;
 }
 
 .form-check-input:focus {
-  border-color: var(--accent-color);
+  border-color: var(--primary-color);
   outline: 0;
   box-shadow: none;
 }
@@ -316,7 +399,6 @@ select:focus {
   box-shadow: none;
 }
 
-
 /* Svg Color
 ------------------------------------------------------------- */
 svg.light-color {
@@ -327,112 +409,70 @@ svg.dark-color {
   color: var(--dark-color);
 }
 
-svg.light-blue-color {
-  color: #5BC4F1;
+svg.primary-color {
+  color: var(--primary-color);
 }
 
 svg.primary-color {
   color: var(--primary-color);
 }
 
-svg.accent-color {
-  color: var(--accent-color);
-}
-
 svg.primary-color-500 {
   color: var(--bs-primary-rgb);
 }
 
+svg.social {
+  color: var(--light-color);
+}
+
+svg.social:hover {
+  color: var(--primary-color);
+}
+
 /* Swiper
 ------------------------------------------------------------- */
-/* Swiper */
-.swiper-pagination {
-  position: unset !important;
-  padding-top: 45px;
+.swiper-horizontal>.swiper-pagination-bullets .swiper-pagination-bullet,
+.swiper-pagination-horizontal.swiper-pagination-bullets .swiper-pagination-bullet {
+  margin: 0 8px;
 }
 
-.swiper-pagination span.swiper-pagination-bullet {
-  width: 18px;
-  height: 18px;
-  background-color: var(--accent-color);
-  opacity: 0.2;
-
+.slider-pagination .swiper-pagination-bullet {
+  width: 50px;
+  height: 3px;
+  border-radius: 0;
+  background: #FFFFFF;
 }
 
-.swiper-pagination span.swiper-pagination-bullet:hover,
-.swiper-pagination span.swiper-pagination-bullet.swiper-pagination-bullet-active {
-  background: var(--accent-color);
-  opacity: 1;
+.slider-pagination .swiper-pagination-bullet-active {
+  background: var(--primary-color);
 }
 
-/* -Zoom Effect
-------------------------------------------*/
-.zoom-effect {
-  position: relative;
-  overflow: hidden;
+.testimonial-pagination .swiper-pagination-bullet {
+  width: 8px;
+  height: 8px;
 }
 
-.zoom-effect img {
-  max-width: 100%;
-  -webkit-transition: 0.6s ease-out;
-  -moz-transition: 0.6s ease-out;
-  transition: 0.6s ease-out;
-}
-
-.zoom-effect:hover img {
-  -webkit-transform: scale(1.1, 1.1);
-  -moz-transform: scale(1.1, 1.1);
-  transform: scale(1.1, 1.1);
-}
-
-.zoom-effect:before {
-  content: "";
-  display: block;
-  width: 100%;
-  height: 100%;
-  top: 0;
-  left: 0;
-  position: absolute;
-  z-index: 2;
-  opacity: 0;
-  -moz-transition: 0.5s ease;
-  -webkit-transition: 0.5s ease;
-  transition: 0.5s ease;
-}
-
-.zoom-effect:hover:before {
-  opacity: 1;
-  cursor: pointer;
+.testimonial-pagination .swiper-pagination-bullet-active {
+  background: var(--primary-color);
 }
 
 
-/* ------ Pagination ------*/
-.pagination {
-  --bs-pagination-padding-x: 0.75rem;
-  --bs-pagination-padding-y: 0.375rem;
-  --bs-pagination-font-size: 1rem;
-  --bs-pagination-color: var(--bs-body-color);
-  --bs-pagination-bg: var(--bs-body-bg);
-  --bs-pagination-border-width: 0;
-  --bs-pagination-border-color: var(--bs-border-color);
-  --bs-pagination-border-radius: 0;
-  --bs-pagination-hover-color: var(--bs-light);
-  --bs-pagination-hover-bg: var(--bs-primary);
-  --bs-pagination-hover-border-color: var(--bs-border-color);
-  --bs-pagination-focus-color: var(--bs-light);
-  --bs-pagination-focus-bg: var(--bs-primary);
-  --bs-pagination-focus-box-shadow: none;
-  --bs-pagination-active-color: var(--bs-light);
-  --bs-pagination-active-bg: var(--bs-primary);
-  --bs-pagination-active-border-color: var(--bs-primary);
-  --bs-pagination-disabled-color: var(--bs-primary-color);
-  --bs-pagination-disabled-bg: var(--bs-primary-bg);
-  --bs-pagination-disabled-border-color: var(--bs-border-color);
+/* modal video override
+------------------------------------------------------------- */
+.modal-dialog {
+  max-width: 800px;
+  margin: auto;
+  height: 100vh;
   display: flex;
-  padding-left: 0;
-  list-style: none;
+  align-items: center;
 }
 
+.modal-content {
+  padding: 0;
+  background-color: #f5f3ef;
+  border: none;
+  border-radius: 0
+}
 
 /*----------------------------------------------*/
 /* 4 SITE STRUCTURE */
@@ -442,14 +482,12 @@ svg.primary-color-500 {
 /*----------------------------------------------*/
 
 a.nav-link {
-  font-family: var(--heading-font);
-  text-transform: capitalize;
-  color: var(--black-color);
-  font-size: 18px;
+  text-transform: uppercase;
+  color: var(--light-black-color);
 }
 
 a.nav-link:focus {
-  color: var(--accent-color);
+  color: var(--light-black-color);
 }
 
 a.nav-link.active,
@@ -476,12 +514,19 @@ a.nav-link:hover {
   border-radius: 0.25rem;
 }
 
+@media (max-width: 999px) {
+  a.nav-link {
+    font-size: 30px;
+    padding: 15px 0 15px 0 !important;
+  }
+}
 
 
 /* 4.2 Slider Section
 /*----------------------------------------------*/
 section#slider .banner-content {
-  width: 50%;
+  width: 40%;
+  background: rgba(253, 253, 253, 0.90);
 }
 
 section#slider .main-slider-button-next,
@@ -496,164 +541,95 @@ section#slider .main-slider-button-next.swiper-button-disabled,
   opacity: 0.6;
 }
 
-.banner-title {
-  color: #FFF;
-  text-shadow: 1px 2px 4px rgba(0, 0, 0, 0.27);
-}
-
 @media only screen and (max-width: 999px) {
   section#slider .banner-content {
     width: 66%;
   }
 }
 
-
-
-/* 4.3 Services Section
+/* 4.3 About Section
 /*----------------------------------------------*/
-
-a.hover-color h4 {
-  transition: all 0.5s ease-in-out;
+svg.play-icon {
+  animation: play 3s alternate infinite ease-in;
 }
 
-a.hover-color h4:hover {
-  color: var(--accent-color);
-}
-
-
-/* 
- 4.4 About style
---------------------------------------------------------------*/
-
-/*---- video section style start ----*/
-/* color box style */
-div#cboxOverlay {
-  opacity: 0.8 !important;
-}
-
-.video .video-player {
-  position: absolute;
-  top: 0;
-  right: 0;
-  bottom: 0;
-  left: 0;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
-iconify-icon.video-icon {
-  color: var(--bs-light);
-  border-radius: 6.25rem;
-  background: rgba(255, 255, 255, 0.35);
-  transition: all 0.4s ease-in-out;
-  animation: playAnimation 2s infinite alternate;
-}
-
-
-@keyframes playAnimation {
+@keyframes play {
   0% {
-    font-size: 35px;
+    transform: scale(.8);
   }
 
   100% {
-    font-size: 60px;
+    transform: scale(1);
   }
 }
 
 
-
-/* 4.5 Popular Products
-------------------------------------------------------------- */
-.product-item .btn-wishlist {
-  display: block;
-  z-index: 111;
-  position: absolute;
-  top: 10px;
-  padding: 6px 10px;
-  color: var(--bs-black);
-  background: var(--bs-white);
-  right: 10px;
-  opacity: 0;
-  transition: opacity 0.5s ease-in;
-}
-
-.product-item .btn-cart {
-  display: block;
-  z-index: 111;
-  position: absolute;
-  top: 60px;
-  padding: 6px 10px;
-  color: var(--bs-black);
-  background: var(--bs-white);
-  right: 10px;
-  opacity: 0;
-  transition: opacity 0.5s ease-in;
-}
-
-.product-item:hover .btn-wishlist,
-.product-item:hover .btn-cart {
-  opacity: 1;
-}
-
-
-
-/* 4.6 Footer Section
+/* 4.4 Services Section
 /*----------------------------------------------*/
-iconify-icon.social-icon {
-  font-size: 1.125rem;
-  padding: 0.75rem;
-  border-radius: 4.375rem;
-  border: 1px solid var(--accent-color);
-  color: var(--accent-color);
-  transition: all 0.5s ease;
+.service-post img.service-img {
+  transition: all 0.5s ease-in-out;
 }
 
-iconify-icon.social-icon:hover {
-  color: #FFF;
-  border: 1px solid var(--accent-color);
-  background: var(--accent-color);
+.service-post:hover img.service-img {
+  opacity: 0.5;
 }
 
 
-
-/*----------------------------------------------*/
-/* 5 OTHER PAGES STYLE */
+/* 4.5 Projects Section
 /*----------------------------------------------*/
 
+button.filter-button {
+  border: 0;
+  background: transparent;
+  text-transform: uppercase;
+  transition: all 0.5s ease-in-out;
+  border-radius: 20px;
+}
 
-/* --------------------------------------------------------------
-5.1 Faqs Page
+button.filter-button.active,
+button.filter-button:hover {
+  color: var(--bs-light);
+  background: var(--primary-color);
+}
+
 /*----------------------------------------------*/
-.accordion-button {
-  font-size: inherit;
-}
+/* 5 PAGES STYLE */
+/*----------------------------------------------*/
 
-.accordion .accordion-button::after {
-  content: "";
-  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' class='plus' viewBox='0 0 16 16'%3E%3Cpath d='M8 4a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3A.5.5 0 0 1 8 4z'/%3E%3C/svg%3E");
-  background-repeat: no-repeat;
-  background-size: 1.6rem;
-  width: 1.5rem;
-  height: 1.5rem;
-}
+/*--------------------------------------------------------------
+5.1 About page 
+--------------------------------------------------------------*/
 
-.accordion .accordion-button:not(.collapsed)::after {
-  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' class='minus' viewBox='0 0 16 16'%3E%3Cpath d='M4 8a.5.5 0 0 1 .5-.5h7a.5.5 0 0 1 0 1h-7A.5.5 0 0 1 4 8z'/%3E%3C/svg%3E");
-  transform: rotate(0deg);
+.breadcrumb-item+.breadcrumb-item::before {
+  color: var(--bs-light);
 }
 
 
 /*--------------------------------------------------------------
- 5.2 Price Plan page style
+  5.2 Blog page 
+  --------------------------------------------------------------*/
+.pagination {
+  --bs-pagination-color: var(--black-color);
+  --bs-pagination-hover-color: #fff;
+  --bs-pagination-hover-bg: var(--primary-color);
+  --bs-pagination-hover-border-color: var(--primary-color);
+  --bs-pagination-focus-color: #fff;
+  --bs-pagination-focus-bg: var(--primary-color);
+  --bs-pagination-focus-box-shadow: none;
+  --bs-pagination-active-bg: var(--primary-color);
+  --bs-pagination-active-border-color: var(--primary-color);
+}
+
+
+/*--------------------------------------------------------------
+ 5.3 Pricing page 
   --------------------------------------------------------------*/
 .plan-post {
-  border: 1px solid var(--accent-color);
-
+  border: 1px solid var(--primary-color);
 }
 
 span.price-tick {
-  color: var(--accent-color);
+  color: var(--primary-color);
 }
 
 .price-option {
@@ -661,125 +637,59 @@ span.price-tick {
 }
 
 
-/* --------------------------------------------------------------
-5.3  Team page style
-------------------------------------------------------------- */
-.team-member ul.social-links {
-  top: 0;
-}
-
-.team-member ul li {
-  padding: 5px;
-  transform: rotatey(-90deg) perspective(100px);
-  transform-origin: left;
-  cursor: pointer;
-  transition: .5s ease-in-out;
-  background-color: var(--accent-color);
-}
-
-.team-member ul li:first-of-type {
-  transition-delay: .3s;
-}
-
-.team-member ul li:nth-of-type(2) {
-  transition-delay: 0.6s;
-}
-
-.team-member ul li:nth-of-type(3) {
-  transition-delay: 0.9s;
-}
-
-.team-member ul li:last-of-type {
-  transition-delay: 1.3s;
-}
-
-.team-member:hover ul li {
-  transform: rotatey(0deg);
-}
-
-
 /*--------------------------------------------------------------
-5.4 Reviews page style
+ 5.4 reviews page
 --------------------------------------------------------------*/
+
 .reviews-components {
-  border: 1px solid var(--light-text-color);
   box-shadow: 0px 12px 90px rgba(12, 12, 12, 0.06);
-  border-radius: 9px;
 }
 
 iconify-icon.quote {
   font-size: 60px;
-  color: var(--accent-color);
+  color: var(--primary-color);
 }
 
 .rate {
-  color: var(--accent-color);
+  color: var(--primary-color);
 }
-
 
 
 
 /*--------------------------------------------------------------
-5.5 Single Product page style
+5.5 faqs page 
 --------------------------------------------------------------*/
 
-.nav-tabs .nav-link {
-  transition: all 0.1s ease-in;
-  border-radius: 0px;
-  color: var(--black-color);
+/* accordian style override  */
+
+.accordion {
+  --bs-accordion-border-color: var(--primary-color);
+  --bs-accordion-transition: color 0.15s ease-in-out, background-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out, border-radius 0.15s ease;
+  --bs-accordion-btn-icon: url('https://api.iconify.design/ion/caret-down.svg?color=%230AA1D6&width=30');
+  --bs-accordion-btn-active-icon: url('https://api.iconify.design/ion/caret-down.svg?color=%230AA1D6&width=30');
+  --bs-accordion-border-radius: 0px;
 }
 
-.nav-tabs .nav-link.show .nav-link,
-.nav-tabs .nav-link.active {
+.accordion-header {
+  margin-bottom: 0;
+  border-top: 1px solid var(--primary-color);
+}
+
+.accordion-button {
+  font-family: var(--heading-font);
+  font-weight: var(--heading-font-weight);
+  color: var(--heading-color);
+  line-height: var(--heading-line-height);
+  letter-spacing: 0.065rem;
+  text-transform: uppercase;
+}
+
+.accordion-button:focus {
+  box-shadow: none;
+}
+
+.accordion-button:not(.collapsed) {
+  color: var(--heading-color);
   background-color: transparent;
-  border-color: transparent;
-  transition: all 0.1s ease-in;
-  color: var(--bs-primary);
-}
-
-.nav-tabs .nav-link:focus,
-.nav-tabs .nav-link:hover {
-  color: var(--bs-primary);
-  isolation: isolate;
-  border-color: transparent;
-  transition: all 0.1s ease-in;
-}
-
-/* product-thumbnail-slider */
-.product-thumbnail-slider {
-  height: 600px;
-}
-
-.product-box {
-  width: 25%;
-}
-
-.product-info .color-product-options .color-item {
-  display: inline-block;
-  vertical-align: top;
-  width: 25px;
-  height: 25px;
-  cursor: pointer;
-  border: 1px solid var(--bs-gray);
-  padding: 1px;
-  -webkit-border-radius: 50%;
-  -moz-border-radius: 50%;
-  border-radius: 50%;
-  margin: 0 3px;
-}
-
-.product-info .color-product-options .color-item span {
-  border: 1px solid var(--bs-dark);
-  display: block;
-  width: 100%;
-  height: 100%;
-  -webkit-border-radius: 50%;
-  -moz-border-radius: 50%;
-  border-radius: 50%;
-}
-
-@media screen and (max-width: 800px) {
-  .product-box {
-    width: 50%;
-  }
+  box-shadow: none;
 }
