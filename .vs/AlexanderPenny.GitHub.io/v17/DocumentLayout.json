@@ -3,8 +3,32 @@
   "WorkspaceRootPath": "C:\\Users\\camoc\\OneDrive\\Documents\\GitHub\\AlexanderPenny.GitHub.io\\",
   "Documents": [
     {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\camoc\\OneDrive\\Documents\\GitHub\\AlexanderPenny.GitHub.io\\PS5Project.html||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:PS5Project.html||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\camoc\\OneDrive\\Documents\\GitHub\\AlexanderPenny.GitHub.io\\index.html||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:index.html||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\camoc\\OneDrive\\Documents\\GitHub\\AlexanderPenny.GitHub.io\\css\\bootstrap.min.css||{A5401142-F49D-43DB-90B1-F57BA349E55C}",
+      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:css\\bootstrap.min.css||{A5401142-F49D-43DB-90B1-F57BA349E55C}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\camoc\\OneDrive\\Documents\\GitHub\\AlexanderPenny.GitHub.io\\about.html||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:about.html||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
       "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\camoc\\OneDrive\\Documents\\GitHub\\AlexanderPenny.GitHub.io\\graphics-project.html||{40D31677-CBC0-4297-A9EF-89D907823A98}",
       "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:graphics-project.html||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\camoc\\OneDrive\\Documents\\GitHub\\AlexanderPenny.GitHub.io\\cmp304.html||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:cmp304.html||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\camoc\\OneDrive\\Documents\\GitHub\\AlexanderPenny.GitHub.io\\style.css||{A5401142-F49D-43DB-90B1-F57BA349E55C}",
+      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:style.css||{A5401142-F49D-43DB-90B1-F57BA349E55C}"
     }
   ],
   "DocumentGroupContainers": [
@@ -27,12 +51,90 @@
             {
               "$type": "Document",
               "DocumentIndex": 0,
+              "Title": "PS5Project.html",
+              "DocumentMoniker": "C:\\Users\\camoc\\OneDrive\\Documents\\GitHub\\AlexanderPenny.GitHub.io\\PS5Project.html",
+              "RelativeDocumentMoniker": "PS5Project.html",
+              "ToolTip": "C:\\Users\\camoc\\OneDrive\\Documents\\GitHub\\AlexanderPenny.GitHub.io\\PS5Project.html",
+              "RelativeToolTip": "PS5Project.html",
+              "ViewState": "AgIAAHgBAAAAAAAAAAAswJIBAABWAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001512|",
+              "WhenOpened": "2025-10-01T14:22:12.951Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "bootstrap.min.css",
+              "DocumentMoniker": "C:\\Users\\camoc\\OneDrive\\Documents\\GitHub\\AlexanderPenny.GitHub.io\\css\\bootstrap.min.css",
+              "RelativeDocumentMoniker": "css\\bootstrap.min.css",
+              "ToolTip": "C:\\Users\\camoc\\OneDrive\\Documents\\GitHub\\AlexanderPenny.GitHub.io\\css\\bootstrap.min.css",
+              "RelativeToolTip": "css\\bootstrap.min.css",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAUAAAAtAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003000|",
+              "WhenOpened": "2025-10-01T14:17:58.336Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
+              "Title": "about.html",
+              "DocumentMoniker": "C:\\Users\\camoc\\OneDrive\\Documents\\GitHub\\AlexanderPenny.GitHub.io\\about.html",
+              "RelativeDocumentMoniker": "about.html",
+              "ToolTip": "C:\\Users\\camoc\\OneDrive\\Documents\\GitHub\\AlexanderPenny.GitHub.io\\about.html",
+              "RelativeToolTip": "about.html",
+              "ViewState": "AgIAAAkBAAAAAAAAAAAswCsBAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001512|",
+              "WhenOpened": "2025-10-01T14:17:56.742Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 6,
+              "Title": "style.css",
+              "DocumentMoniker": "C:\\Users\\camoc\\OneDrive\\Documents\\GitHub\\AlexanderPenny.GitHub.io\\style.css",
+              "RelativeDocumentMoniker": "style.css",
+              "ToolTip": "C:\\Users\\camoc\\OneDrive\\Documents\\GitHub\\AlexanderPenny.GitHub.io\\style.css",
+              "RelativeToolTip": "style.css",
+              "ViewState": "AgIAAIMAAAAAAAAAAAAswJwAAAA2AAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003000|",
+              "WhenOpened": "2025-10-01T14:12:56.764Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "index.html",
+              "DocumentMoniker": "C:\\Users\\camoc\\OneDrive\\Documents\\GitHub\\AlexanderPenny.GitHub.io\\index.html",
+              "RelativeDocumentMoniker": "index.html",
+              "ToolTip": "C:\\Users\\camoc\\OneDrive\\Documents\\GitHub\\AlexanderPenny.GitHub.io\\index.html",
+              "RelativeToolTip": "index.html",
+              "ViewState": "AgIAACQCAAAAAAAAAAAswD8CAACvAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001512|",
+              "WhenOpened": "2025-10-01T14:06:47.903Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 5,
+              "Title": "cmp304.html",
+              "DocumentMoniker": "C:\\Users\\camoc\\OneDrive\\Documents\\GitHub\\AlexanderPenny.GitHub.io\\cmp304.html",
+              "RelativeDocumentMoniker": "cmp304.html",
+              "ToolTip": "C:\\Users\\camoc\\OneDrive\\Documents\\GitHub\\AlexanderPenny.GitHub.io\\cmp304.html",
+              "RelativeToolTip": "cmp304.html",
+              "ViewState": "AgIAAAgBAAAAAAAAAAAswCEBAAArAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001512|",
+              "WhenOpened": "2025-10-01T14:06:25.091Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 4,
               "Title": "graphics-project.html",
               "DocumentMoniker": "C:\\Users\\camoc\\OneDrive\\Documents\\GitHub\\AlexanderPenny.GitHub.io\\graphics-project.html",
               "RelativeDocumentMoniker": "graphics-project.html",
               "ToolTip": "C:\\Users\\camoc\\OneDrive\\Documents\\GitHub\\AlexanderPenny.GitHub.io\\graphics-project.html",
               "RelativeToolTip": "graphics-project.html",
-              "ViewState": "AgIAAHkBAAAAAAAAAAAAAJEBAABhAAAAAAAAAA==",
+              "ViewState": "AgIAAAgBAAAAAAAAAAAswCEBAAArAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001512|",
               "WhenOpened": "2025-10-01T13:24:47.574Z",
               "EditorCaption": ""
