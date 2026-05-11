@@ -1,0 +1,442 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Alexander Penny Library — Dundee</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@300;400;500&family=DM+Serif+Display:ital@0;1&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg: #f5f4f0;
+      --surface: #ffffff;
+      --surface2: #f0eeea;
+      --border: rgba(0,0,0,0.08);
+      --border-med: rgba(0,0,0,0.14);
+      --text: #1a1917;
+      --text-2: #5a5850;
+      --text-3: #9a9890;
+      --accent: #2d5a3d;
+      --accent-bg: #eaf2ec;
+      --warn-bg: #fef6e4;
+      --warn-text: #7a5500;
+      --danger-bg: #fdecea;
+      --danger-text: #8a1f1a;
+      --info-bg: #e8f0fb;
+      --info-text: #1a3d80;
+      --tag-theology-bg: #faece7;
+      --tag-theology-text: #712b13;
+      --tag-theology-border: #f0997b;
+      --tag-mystery-bg: #eeedfe;
+      --tag-mystery-text: #3c3489;
+      --tag-mystery-border: #afa9ec;
+      --tag-history-bg: #faeeda;
+      --tag-history-text: #633806;
+      --tag-history-border: #ef9f27;
+      --radius: 10px;
+      --radius-sm: 6px;
+    }
+
+    body {
+      font-family: 'DM Sans', sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      min-height: 100vh;
+      padding: 2rem 1.5rem 4rem;
+    }
+
+    /* Page header */
+    .page-header {
+      max-width: 900px;
+      margin: 0 auto 2rem;
+      display: flex;
+      align-items: flex-end;
+      justify-content: space-between;
+      gap: 1rem;
+    }
+    .page-title {
+      font-family: 'DM Serif Display', serif;
+      font-size: 32px;
+      color: var(--text);
+      line-height: 1.1;
+    }
+    .page-title span {
+      font-style: italic;
+      color: var(--accent);
+    }
+    .page-location {
+      font-size: 13px;
+      color: var(--text-3);
+      margin-top: 4px;
+      font-weight: 300;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+    }
+    .header-stats {
+      display: flex;
+      gap: 20px;
+      flex-shrink: 0;
+    }
+    .stat { text-align: right; }
+    .stat-num {
+      font-family: 'DM Serif Display', serif;
+      font-size: 26px;
+      color: var(--text);
+      line-height: 1;
+    }
+    .stat-lbl {
+      font-size: 11px;
+      color: var(--text-3);
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      margin-top: 2px;
+    }
+
+    /* Main card */
+    .card {
+      max-width: 900px;
+      margin: 0 auto;
+      background: var(--surface2);
+      border-radius: var(--radius);
+      padding: 1.25rem;
+      border: 1px solid var(--border);
+    }
+
+    /* Toolbar */
+    .toolbar {
+      display: flex;
+      gap: 8px;
+      margin-bottom: 1.25rem;
+      flex-wrap: wrap;
+    }
+    .toolbar input, .toolbar select {
+      font-family: 'DM Sans', sans-serif;
+      font-size: 13px;
+      color: var(--text);
+      background: var(--surface);
+      border: 1px solid var(--border-med);
+      border-radius: var(--radius-sm);
+      padding: 8px 12px;
+      outline: none;
+      transition: border-color 0.15s;
+    }
+    .toolbar input { flex: 1; min-width: 160px; }
+    .toolbar select { min-width: 140px; cursor: pointer; }
+    .toolbar input:focus, .toolbar select:focus { border-color: var(--accent); }
+
+    /* Column header */
+    .col-head {
+      display: grid;
+      grid-template-columns: 40px 3fr 2fr 1.1fr 1fr 100px;
+      gap: 8px;
+      padding: 6px 10px;
+      font-size: 10px;
+      font-weight: 500;
+      letter-spacing: 0.07em;
+      text-transform: uppercase;
+      color: var(--text-3);
+      border-bottom: 1px solid var(--border-med);
+      margin-bottom: 2px;
+    }
+
+    /* Book list wrapper */
+    #list {
+      border-radius: var(--radius-sm);
+      overflow: hidden;
+      border: 1px solid var(--border);
+    }
+
+    /* Book rows */
+    .book-row {
+      display: grid;
+      grid-template-columns: 40px 3fr 2fr 1.1fr 1fr 100px;
+      gap: 8px;
+      padding: 10px 10px;
+      align-items: center;
+      background: var(--surface);
+      border-bottom: 1px solid var(--border);
+      transition: background 0.1s;
+    }
+    .book-row:last-child { border-bottom: none; }
+    .book-row:hover { background: #fafaf8; }
+
+    .book-thumb {
+      width: 36px;
+      height: 48px;
+      border-radius: 3px;
+      object-fit: cover;
+      display: block;
+      border: 1px solid var(--border-med);
+    }
+    .book-thumb-ph {
+      width: 36px;
+      height: 48px;
+      border-radius: 3px;
+      background: var(--surface2);
+      border: 1px solid var(--border-med);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--text-3);
+    }
+    .book-thumb-ph svg { width: 18px; height: 18px; stroke: currentColor; fill: none; stroke-width: 1.5; }
+
+    .b-title { font-size: 14px; font-weight: 500; color: var(--text); line-height: 1.35; }
+    .b-author { font-size: 13px; color: var(--text-2); font-weight: 300; }
+
+    .badge {
+      display: inline-block;
+      font-size: 11px;
+      padding: 3px 9px;
+      border-radius: 999px;
+      border: 1px solid;
+      font-weight: 400;
+      white-space: nowrap;
+    }
+    .g-fiction    { background: var(--info-bg);             color: var(--info-text);           border-color: #b5d4f4; }
+    .g-nonfiction { background: var(--surface2);            color: var(--text-2);              border-color: var(--border-med); }
+    .g-mystery    { background: var(--tag-mystery-bg);      color: var(--tag-mystery-text);    border-color: var(--tag-mystery-border); }
+    .g-history    { background: var(--tag-history-bg);      color: var(--tag-history-text);    border-color: var(--tag-history-border); }
+    .g-science    { background: #eaf3de;                    color: #27500a;                    border-color: #97c459; }
+    .g-reference  { background: var(--surface2);            color: var(--text-2);              border-color: var(--border-med); }
+    .g-theology   { background: var(--tag-theology-bg);     color: var(--tag-theology-text);   border-color: var(--tag-theology-border); }
+    .a-yes     { background: #eaf3de; color: #27500a; border-color: #97c459; }
+    .a-no      { background: var(--warn-bg);   color: var(--warn-text);   border-color: #fac775; }
+    .a-ref     { background: var(--info-bg);   color: var(--info-text);   border-color: #b5d4f4; }
+    .a-unavail { background: var(--danger-bg); color: var(--danger-text); border-color: #f09595; }
+
+    .queue-cell { display: flex; align-items: center; gap: 5px; font-size: 12px; color: var(--text-2); }
+    .queue-cell svg { width: 14px; height: 14px; stroke: currentColor; fill: none; stroke-width: 1.5; flex-shrink: 0; }
+    .q-num { font-weight: 500; font-size: 13px; color: var(--text); }
+    .q-zero { color: var(--text-3); }
+
+
+
+    /* Footer */
+    .foot {
+      display: flex;
+      justify-content: space-between;
+      margin-top: 1rem;
+      padding-top: 10px;
+      border-top: 1px solid var(--border);
+      font-size: 12px;
+      color: var(--text-3);
+    }
+
+    /* Modal */
+    .modal-overlay {
+      display: none;
+      position: fixed;
+      inset: 0;
+      background: rgba(0,0,0,0.4);
+      z-index: 100;
+      align-items: center;
+      justify-content: center;
+    }
+    .modal-overlay.open { display: flex; }
+    .modal {
+      background: var(--surface);
+      border: 1px solid var(--border-med);
+      border-radius: var(--radius);
+      padding: 1.75rem;
+      width: 430px;
+      max-width: 96vw;
+      max-height: 90vh;
+      overflow-y: auto;
+      position: relative;
+    }
+    .modal h3 {
+      font-family: 'DM Serif Display', serif;
+      font-size: 20px;
+      margin-bottom: 1.25rem;
+      color: var(--text);
+    }
+    .fr { margin-bottom: 12px; }
+    .fr label {
+      display: block;
+      font-size: 11px;
+      font-weight: 500;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+      color: var(--text-3);
+      margin-bottom: 4px;
+    }
+    .fr input, .fr select {
+      width: 100%;
+      font-family: 'DM Sans', sans-serif;
+      font-size: 13px;
+      color: var(--text);
+      background: var(--surface);
+      border: 1px solid var(--border-med);
+      border-radius: var(--radius-sm);
+      padding: 8px 10px;
+      outline: none;
+      transition: border-color 0.15s;
+    }
+    .fr input:focus, .fr select:focus { border-color: var(--accent); }
+    .fr-row { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+    .modal-actions { display: flex; gap: 8px; justify-content: flex-end; margin-top: 1.5rem; }
+    .btn {
+      font-family: 'DM Sans', sans-serif;
+      font-size: 13px;
+      padding: 8px 18px;
+      border-radius: var(--radius-sm);
+      cursor: pointer;
+      border: 1px solid var(--border-med);
+      background: var(--surface);
+      color: var(--text-2);
+      transition: all 0.12s;
+    }
+    .btn:hover { background: var(--surface2); }
+    .btn-primary {
+      background: var(--accent);
+      color: #fff;
+      border-color: var(--accent);
+    }
+    .btn-primary:hover { background: #24492f; }
+    .close-btn {
+      position: absolute;
+      top: 14px; right: 16px;
+      background: none; border: none;
+      font-size: 20px; cursor: pointer;
+      color: var(--text-3); line-height: 1;
+    }
+    .close-btn:hover { color: var(--text); }
+
+    .empty {
+      padding: 2.5rem;
+      text-align: center;
+      color: var(--text-3);
+      font-size: 14px;
+      background: var(--surface);
+    }
+  </style>
+</head>
+<body>
+
+  <div class="page-header">
+    <div>
+      <div class="page-title">Alexander <span>Penny</span> Library</div>
+      <div class="page-location">Dundee</div>
+    </div>
+    <div class="header-stats" id="headerStats"></div>
+  </div>
+
+  <div class="card">
+    <div class="toolbar">
+      <input type="text" id="q" placeholder="Search title or author…" oninput="render()" />
+      <select id="gf" onchange="render()">
+        <option value="">All genres</option>
+        <option>Fiction</option>
+        <option>Non-Fiction</option>
+        <option>Mystery</option>
+        <option>History</option>
+        <option>Science</option>
+        <option>Reference</option>
+        <option>Theology</option>
+      </select>
+      <select id="af" onchange="render()">
+        <option value="">All availability</option>
+        <option>Available</option>
+        <option>On Loan</option>
+        <option>Reference Only</option>
+        <option>Unavailable</option>
+      </select>
+    </div>
+
+    <div class="col-head">
+      <span></span>
+      <span>Title</span>
+      <span>Author</span>
+      <span>Genre</span>
+      <span>Status</span>
+      <span>Queue</span>
+    </div>
+
+    <div id="list"></div>
+
+    <div class="foot">
+      <span id="cnt"></span>
+      <span>Alexander Penny Library · Dundee</span>
+    </div>
+  </div>
+
+
+
+  <script>
+    const GC = {
+      Fiction:'g-fiction','Non-Fiction':'g-nonfiction',Mystery:'g-mystery',
+      History:'g-history',Science:'g-science',Reference:'g-reference',Theology:'g-theology'
+    };
+    const AC = {Available:'a-yes','On Loan':'a-no','Reference Only':'a-ref',Unavailable:'a-unavail'};
+    const AL = {Available:'Available','On Loan':'On loan','Reference Only':'Ref only',Unavailable:'Unavailable'};
+
+    let books = [
+      {id:1,  title:"1984",                                      author:"George Orwell",      genre:"Fiction",  year:"1949", avail:"On Loan",     queue:3, img:"https://images-na.ssl-images-amazon.com/images/I/41eKKQQOxML.jpg"},
+      {id:2,  title:"Answering Orthodoxy",                       author:"Michael Lofton",     genre:"Theology", year:"2023", avail:"On Loan",     queue:0, img:"https://images-na.ssl-images-amazon.com/images/S/compressed.photo.goodreads.com/books/1698807167i/200825365.jpg"},
+      {id:3,  title:"The Dialogue of St. Catherine of Siena",    author:"Catherine of Siena", genre:"Theology", year:"1370", avail:"Unavailable", queue:0, img:"https://cdn.waterstones.com/bookjackets/small/9781/9267/9781926777047.jpg"},
+      {id:4,  title:"Altar Against Altar",                       author:"Andrew Mioni",       genre:"Theology", year:"2023", avail:"Available",   queue:0, img:"https://cdn.waterstones.com/bookjackets/small/9798/8887/9798888701775.jpg"},
+      {id:5,  title:"Last Testament: In His Own Words",          author:"Pope Benedict XVI",  genre:"Theology", year:"2016", avail:"Unavailable", queue:0, img:"https://cdn.waterstones.com/bookjackets/small/9781/4729/9781472944627.jpg"},
+      {id:6,  title:"St. Thomas Aquinas on Politics and Ethics", author:"Thomas Aquinas",     genre:"Theology", year:"1988", avail:"Available",   queue:0, img:"https://tse3.mm.bing.net/th/id/OIP.gymuDeVJEMfhdNY2cSihZQAAAA?rs=1&pid=ImgDetMain&o=7&rm=3"},
+      {id:7,  title:"Uncover Mark",                              author:"Various",            genre:"Theology", year:"2015", avail:"Available",   queue:0, img:"https://uk.10ofthose.com/img/paths/assets/product_media/16214/LtoCwK2s82d0hzg8napFOFXb1Mnpuu-metaOTc4MTkxMTMzNDA0MC5qcGc=-.jpg/991038e86303d6738ba1b028d721023f/LtoCwK2s82d0hzg8napFOFXb1Mnpuu-metaOTc4MTkxMTMzNDA0MC5qcGc=-.jpg"},
+      {id:8,  title:"Uncover John",                              author:"Various",            genre:"Theology", year:"2015", avail:"Available",   queue:0, img:"https://www.worldofbooks.com/cdn/shop/files/0957221282.jpg?v=1751456495&width=493"},
+      {id:9,  title:"Uncover Luke",                              author:"Various",            genre:"Theology", year:"2015", avail:"Available",   queue:0, img:"https://uk.10ofthose.com/img/paths/assets/product_media/19715/Cover.jpg/e19c36680c50bc00e459ed1a4267e6fb/Cover.webp"},
+      {id:10, title:"The New Testament in Scots",                author:"William Lorimer",    genre:"Theology", year:"1983", avail:"Available",   queue:0, img:"https://pictures.abebooks.com/inventory/31203423222.jpg"},
+      {id:10, title:"The Everlasting Man",                       author:"G.K. Chesterton",    genre:"Theology", year:"1925", avail:"Unavailable",   queue:0, img:"https://m.media-amazon.com/images/I/41rdnOjtg8L._SY342_.jpg"},
+    ];
+    let eid = null;
+
+    const bookIcon = `<svg viewBox="0 0 24 24"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg>`;
+    const usersIcon = `<svg viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>`;
+
+    function thumb(b) {
+      if (b.img) {
+        return `<img class="book-thumb" src="${b.img}" alt="" onerror="this.style.display='none';this.nextSibling.style.display='flex'"><div class="book-thumb-ph" style="display:none">${bookIcon}</div>`;
+      }
+      return `<div class="book-thumb-ph">${bookIcon}</div>`;
+    }
+
+    function updateStats() {
+      const avail = books.filter(b => b.avail === 'Available').length;
+      const onLoan = books.filter(b => b.avail === 'On Loan').length;
+      document.getElementById('headerStats').innerHTML = `
+        <div class="stat"><div class="stat-num">${avail}</div><div class="stat-lbl">Available</div></div>
+        <div class="stat"><div class="stat-num">${onLoan}</div><div class="stat-lbl">On loan</div></div>`;
+    }
+
+    function render() {
+      const q = document.getElementById('q').value.toLowerCase();
+      const gf = document.getElementById('gf').value;
+      const af = document.getElementById('af').value;
+      const f = books.filter(b =>
+        (!q || b.title.toLowerCase().includes(q) || b.author.toLowerCase().includes(q)) &&
+        (!gf || b.genre === gf) &&
+        (!af || b.avail === af)
+      );
+      const list = document.getElementById('list');
+      if (f.length === 0) {
+        list.innerHTML = `<div class="empty">No books found.</div>`;
+      } else {
+        list.innerHTML = f.map(b => `
+          <div class="book-row">
+            <div>${thumb(b)}</div>
+            <div class="b-title">${b.title}</div>
+            <div class="b-author">${b.author}</div>
+            <div><span class="badge ${GC[b.genre] || 'g-nonfiction'}">${b.genre}</span></div>
+            <div><span class="badge ${AC[b.avail] || 'a-yes'}">${AL[b.avail] || b.avail}</span></div>
+            <div class="queue-cell">${b.queue > 0
+              ? `${usersIcon}<span class="q-num">${b.queue}</span><span>waiting</span>`
+              : `<span class="q-zero">—</span>`
+            }</div>
+          </div>`).join('');
+      }
+      document.getElementById('cnt').textContent = `${f.length} of ${books.length} books`;
+      updateStats();
+    }
+
+    render();
+  </script>
+</body>
+</html>
