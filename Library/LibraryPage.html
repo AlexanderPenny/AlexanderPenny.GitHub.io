@@ -159,6 +159,10 @@
       background: var(--surface);
       border-bottom: 1px solid var(--border);
       transition: background 0.1s;
+      cursor: pointer;
+      touch-action: manipulation;
+      user-select: none;
+      -webkit-tap-highlight-color: transparent;
     }
     .book-row:last-child { border-bottom: none; }
     .book-row:hover { background: #fafaf8; }
@@ -313,6 +317,54 @@
       font-size: 14px;
       background: var(--surface);
     }
+
+    /* Clickable rows */
+    .book-row.active {
+      background: #f7f9f7;
+    }
+
+    /* Blurb panel */
+    .blurb-row {
+      background: var(--accent-bg);
+      border-bottom: 1px solid var(--border);
+      overflow: hidden;
+      max-height: 0;
+      transition: max-height 0.28s ease, padding 0.2s ease;
+      padding: 0 14px 0 56px;
+    }
+    .blurb-row.open {
+      max-height: 200px;
+      padding: 12px 14px 14px 56px;
+    }
+    .blurb-row p {
+      font-size: 13px;
+      line-height: 1.6;
+      color: var(--text-2);
+    }
+    .blurb-row .blurb-year {
+      font-size: 11px;
+      color: var(--text-3);
+      margin-bottom: 4px;
+      font-weight: 500;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+    }
+
+    /* Mobile: collapse columns gracefully */
+    @media (max-width: 600px) {
+      .col-head { display: none; }
+      .book-row {
+        grid-template-columns: 40px 1fr 90px;
+        grid-template-rows: auto auto;
+      }
+      .book-row > div:nth-child(1) { grid-row: 1 / 3; }
+      .book-row > div:nth-child(2) { grid-column: 2; grid-row: 1; }
+      .book-row > div:nth-child(3) { grid-column: 2; grid-row: 2; }
+      .book-row > div:nth-child(4) { display: none; }
+      .book-row > div:nth-child(5) { grid-column: 3; grid-row: 1; justify-self: end; }
+      .book-row > div:nth-child(6) { display: none; }
+      .blurb-row.open { padding: 10px 12px 14px 14px; }
+    }
   </style>
 </head>
 <body>
@@ -375,20 +427,36 @@
     const AL = {Available:'Available','On Loan':'On loan','Reference Only':'Ref only',Unavailable:'Unavailable'};
 
     let books = [
-      {id:1,  title:"1984",                                      author:"George Orwell",      genre:"Fiction",  year:"1949", avail:"On Loan",     queue:3, img:"https://images-na.ssl-images-amazon.com/images/I/41eKKQQOxML.jpg"},
-      {id:2,  title:"Answering Orthodoxy",                       author:"Michael Lofton",     genre:"Theology", year:"2023", avail:"On Loan",     queue:0, img:"https://images-na.ssl-images-amazon.com/images/S/compressed.photo.goodreads.com/books/1698807167i/200825365.jpg"},
-      {id:3,  title:"The Dialogue of St. Catherine of Siena",    author:"St. Catherine of Siena, TOSD", genre:"Theology", year:"1370", avail:"Unavailable", queue:0, img:"https://cdn.waterstones.com/bookjackets/small/9781/9267/9781926777047.jpg"},
-      {id:4,  title:"Altar Against Altar",                       author:"Andrew Mioni",       genre:"Theology", year:"2023", avail:"Available",   queue:0, img:"https://cdn.waterstones.com/bookjackets/small/9798/8887/9798888701775.jpg"},
-      {id:5,  title:"Last Testament: In His Own Words",          author:"Pope Benedict XVI",  genre:"Non-Fiction", year:"2016", avail:"Unavailable", queue:0, img:"https://cdn.waterstones.com/bookjackets/small/9781/4729/9781472944627.jpg"},
-      {id:6,  title:"St. Thomas Aquinas on Politics and Ethics", author:"Thomas Aquinas",     genre:"Theology", year:"1988", avail:"Available",   queue:0, img:"https://tse3.mm.bing.net/th/id/OIP.gymuDeVJEMfhdNY2cSihZQAAAA?rs=1&pid=ImgDetMain&o=7&rm=3"},
-      {id:7,  title:"Uncover Mark",                              author:"Various",            genre:"Theology", year:"2015", avail:"Available",   queue:0, img:"https://uk.10ofthose.com/img/paths/assets/product_media/16214/LtoCwK2s82d0hzg8napFOFXb1Mnpuu-metaOTc4MTkxMTMzNDA0MC5qcGc=-.jpg/991038e86303d6738ba1b028d721023f/LtoCwK2s82d0hzg8napFOFXb1Mnpuu-metaOTc4MTkxMTMzNDA0MC5qcGc=-.jpg"},
-      {id:8,  title:"Uncover John",                              author:"Various",            genre:"Theology", year:"2015", avail:"Available",   queue:0, img:"https://www.worldofbooks.com/cdn/shop/files/0957221282.jpg?v=1751456495&width=493"},
-      {id:9,  title:"Uncover Luke",                             author:"Various",            genre:"Theology", year:"2015", avail:"Available",   queue:0, img:"https://uk.10ofthose.com/img/paths/assets/product_media/19715/Cover.jpg/e19c36680c50bc00e459ed1a4267e6fb/Cover.webp"},
-      {id:10, title:"The New Testament in Scots",                author:"William Lorimer",    genre:"Theology", year:"1983", avail:"Available",   queue:0, img:"https://pictures.abebooks.com/inventory/31203423222.jpg"},
-      {id:11, title:"The Everlasting Man",                       author:"G.K. Chesterton",    genre:"Theology", year:"1925", avail:"Unavailable",   queue:0, img:"https://m.media-amazon.com/images/I/41rdnOjtg8L._SY342_.jpg"},
-      {id:12, title:"The Secret of the Rosary",                    author:"St. Louis de Montfort, SMM",    genre:"Theology", year:"1716", avail:"On Loan",   queue:0, img:"https://i.ebayimg.com/images/g/7-EAAOSwGvlhGO58/s-l960.webp"},
+      {id:1,  title:"1984",                                      author:"George Orwell",      genre:"Fiction",  year:"1949", avail:"On Loan",     queue:3, img:"https://images-na.ssl-images-amazon.com/images/I/41eKKQQOxML.jpg",
+       blurb:"Winston Smith lives in a totalitarian superstate where the ruling Party, led by the mysterious Big Brother, controls every aspect of life. Working at the Ministry of Truth, Winston secretly begins to question the regime — and falls into a dangerous love affair. A chilling masterpiece about surveillance, propaganda, and the resilience of the human spirit."},
+      {id:2,  title:"Answering Orthodoxy",                       author:"Michael Lofton",     genre:"Theology", year:"2023", avail:"On Loan",     queue:0, img:"https://images-na.ssl-images-amazon.com/images/S/compressed.photo.goodreads.com/books/1698807167i/200825365.jpg",
+       blurb:"A Catholic apologist addresses common Eastern Orthodox objections to Rome, engaging questions of papal authority, the Filioque, and ecclesiology with scholarly charity. Lofton draws on patristics and conciliar history to argue that Catholic and Orthodox positions are less opposed than they often appear."},
+      {id:3,  title:"The Dialogue of St. Catherine of Siena",    author:"St. Catherine of Siena, TOSD", genre:"Theology", year:"1370", avail:"Unavailable", queue:0, img:"https://cdn.waterstones.com/bookjackets/small/9781/9267/9781926777047.jpg",
+       blurb:"This following summary is generated by AI, blurb is not verified: Dictated in a state of ecstasy, this mystical masterpiece records a conversation between the soul and God. Saint Catherine speaks of divine providence, the Bridge of Christ, and the nature of tears, producing one of the great works of Christian mysticism and earning her a place as a Doctor of the Church."},
+      {id:4,  title:"Altar Against Altar",                       author:"Andrew Mioni",       genre:"Theology", year:"2023", avail:"Available",   queue:0, img:"https://cdn.waterstones.com/bookjackets/small/9798/8887/9798888701775.jpg",
+       blurb:"When does the crisis in the Church end? May priests universally minister without any canonical mission? Can one Eucharist be offered without jurisdiction? Attempting to use the Scriptures, patristic sources, and magisterial declarations, Altar Against Altar tries to answer these and other questions relating to the SSPX and other adjacent traditionalist societies who are canonically irregular, and tries to demonstrate how the independent traditionalist ministry does not provide a remedy for the current crisis but only perpetuates it."},
+      {id:5,  title:"Last Testament: In His Own Words",          author:"Pope Benedict XVI",  genre:"Non-Fiction", year:"2016", avail:"Unavailable", queue:0, img:"https://cdn.waterstones.com/bookjackets/small/9781/4729/9781472944627.jpg",
+       blurb:"In extended conversations with journalist Peter Seewald, the retired Pope speaks candidly about his childhood in Bavaria, his theological formation, the Second Vatican Council, his tumultuous papacy, and the reasons for his historic resignation. A rare and intimate self-portrait of one of the most significant pontiffs of modern times."},
+      {id:6,  title:"St. Thomas Aquinas on Politics and Ethics", author:"Thomas Aquinas",     genre:"Theology", year:"1988", avail:"Available",   queue:0, img:"https://tse3.mm.bing.net/th/id/OIP.gymuDeVJEMfhdNY2cSihZQAAAA?rs=1&pid=ImgDetMain&o=7&rm=3",
+       blurb:"This following summary is generated by AI, blurb is not verified: A compact Norton Critical Edition gathering Aquinas's key texts on natural law, justice, kingship, and the moral life. Edited and translated by Paul Sigmund, it includes selections from the Summa Theologiae and De Regno, offering an accessible entry into the Angelic Doctor's political and moral philosophy."},
+      {id:7,  title:"Uncover Mark",                              author:"Various",            genre:"Theology", year:"2015", avail:"Available",   queue:0, img:"https://uk.10ofthose.com/img/paths/assets/product_media/16214/LtoCwK2s82d0hzg8napFOFXb1Mnpuu-metaOTc4MTkxMTMzNDA0MC5qcGc=-.jpg/991038e86303d6738ba1b028d721023f/LtoCwK2s82d0hzg8napFOFXb1Mnpuu-metaOTc4MTkxMTMzNDA0MC5qcGc=-.jpg",
+       blurb:"Note that this is a Protestant text, and may contain theological errors. This following summary is generated by AI, blurb is not verified: An eight-session Bible study guide taking groups through the Gospel of Mark, designed to be accessible to those with no prior church background. Using the UCCF approach, it pairs the text with honest discussion questions, helping participants encounter Jesus of Nazareth freshly and personally."},
+      {id:8,  title:"Uncover John",                              author:"Various",            genre:"Theology", year:"2015", avail:"Available",   queue:0, img:"https://www.worldofbooks.com/cdn/shop/files/0957221282.jpg?v=1751456495&width=493",
+       blurb:"Note that this is a Protestant text, and may contain theological errors. This following summary is generated by AI, blurb is not verified: A companion study guide to the Gospel of John in the Uncover series, leading small groups through the 'I am' sayings, the signs, and the farewell discourses. Ideal for guest services or one-to-one evangelism, it assumes no background and invites enquirers to take the claims of Jesus seriously."},
+      {id:9,  title:"Uncover Luke",                             author:"Various",            genre:"Theology", year:"2015", avail:"Available",   queue:0, img:"https://uk.10ofthose.com/img/paths/assets/product_media/19715/Cover.jpg/e19c36680c50bc00e459ed1a4267e6fb/Cover.webp",
+       blurb:"Note that this is a Protestant text, and may contain theological errors. This following summary is generated by AI, blurb is not verified: The Luke instalment of the Uncover series walks through the third Gospel across eight sessions, exploring Luke's portrait of Jesus as Saviour of the outcasts, the poor, and the lost. Suitable for both personal reading and group discussion, with questions designed to encourage honest inquiry."},
+      {id:10, title:"The New Testament in Scots",                author:"William Lorimer",    genre:"Theology", year:"1983", avail:"Available",   queue:0, img:"https://pictures.abebooks.com/inventory/31203423222.jpg",
+       blurb:"Lorimer's landmark translation renders the entire New Testament into vigorous Scots, the fruit of a lifetime's scholarly labour. Widely praised for its fidelity to the Greek and its capturing of regional voice — Paul writes in an educated Scots, Peter in a rougher dialect — it is both a theological document and a monument of Scottish literature."},
+      {id:11, title:"The Everlasting Man",                       author:"G.K. Chesterton",    genre:"Theology", year:"1925", avail:"Unavailable",   queue:0, img:"https://m.media-amazon.com/images/I/41rdnOjtg8L._SY342_.jpg",
+       blurb:"This following summary is generated by AI, blurb is not verified: Chesterton's sweeping response to H.G. Wells's Outline of History argues that humanity and Christ are both utterly unlike anything else in existence. Moving from cave paintings to the Incarnation, the book helped convert a young C.S. Lewis to Christianity and remains a landmark of Christian apologetics."},
+      {id:12, title:"The Secret of the Rosary",                    author:"St. Louis de Montfort, SMM",    genre:"Theology", year:"1716", avail:"On Loan",   queue:0, img:"https://i.ebayimg.com/images/g/7-EAAOSwGvlhGO58/s-l960.webp",
+       blurb:"Written as a series of 'roses' or chapters, St. Louis de Montfort's classic treatise presents the Rosary not merely as a devotional exercise but as a powerful weapon of spiritual warfare and a complete school of contemplative prayer, drawing on scripture, legend, and the lives of the saints."},
+      {id:13, title:"Seven Words",                    author:"Fr. Sebastian Polak, SDS",    genre:"Theology", year:"2014", avail:"Unavailable",   queue:0, img:"https://e-religijne.pl/environment/cache/images/productGfx_54f082fe73bf915abf4b53ad6fa7a50d_500_500.jpg",
+       blurb:"This following summary is generated by AI, blurb is not verified: A meditative commentary on the seven last words of Christ from the Cross, offered as material for Good Friday liturgy and personal retreat. Fr. Polak draws on scripture, theology, and patristic sources to unfold the spiritual depth of each utterance, from 'Father, forgive them' to 'Into your hands I commend my spirit.'"},
+      {id:14, title:"ESV-CE Catholic Bible",                    author:"God",    genre:"Theology", avail:"On Loan",   queue:0, img:"https://www.eden.co.uk/images/500/9780281085262.webp",
+       blurb:"The English Standard Version Catholic Edition combines the precise, essentially literal translation of the ESV with the full Catholic canon including the deuterocanonical books. Approved for Catholic liturgical and study use, it offers a readable yet scholarly text favoured by those who want both accuracy and literary quality."},
     ];
-    let eid = null;
+    let activeId = null;
 
     const bookIcon = `<svg viewBox="0 0 24 24"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg>`;
     const usersIcon = `<svg viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>`;
@@ -408,6 +476,27 @@
         <div class="stat"><div class="stat-num">${onLoan}</div><div class="stat-lbl">On loan</div></div>`;
     }
 
+    function toggleBlurb(id) {
+      const prev = activeId;
+      // close previous
+      if (prev !== null) {
+        const prevRow = document.querySelector(`.book-row[data-id="${prev}"]`);
+        const prevBlurb = document.querySelector(`.blurb-row[data-id="${prev}"]`);
+        if (prevRow) prevRow.classList.remove('active');
+        if (prevBlurb) prevBlurb.classList.remove('open');
+      }
+      // open new, or toggle off if same
+      if (prev === id) {
+        activeId = null;
+      } else {
+        activeId = id;
+        const row = document.querySelector(`.book-row[data-id="${id}"]`);
+        const blurb = document.querySelector(`.blurb-row[data-id="${id}"]`);
+        if (row) row.classList.add('active');
+        if (blurb) blurb.classList.add('open');
+      }
+    }
+
     function render() {
       const q = document.getElementById('q').value.toLowerCase();
       const gf = document.getElementById('gf').value;
@@ -419,10 +508,13 @@
       );
       const list = document.getElementById('list');
       if (f.length === 0) {
+        activeId = null;
         list.innerHTML = `<div class="empty">No books found.</div>`;
       } else {
-        list.innerHTML = f.map(b => `
-          <div class="book-row">
+        list.innerHTML = f.map(b => {
+          const isOpen = activeId === b.id;
+          return `
+          <div class="book-row${isOpen ? ' active' : ''}" data-id="${b.id}" onclick="toggleBlurb(${b.id})">
             <div>${thumb(b)}</div>
             <div class="b-title">${b.title}</div>
             <div class="b-author">${b.author}</div>
@@ -432,7 +524,12 @@
               ? `${usersIcon}<span class="q-num">${b.queue}</span><span>waiting</span>`
               : `<span class="q-zero">—</span>`
             }</div>
-          </div>`).join('');
+          </div>
+          <div class="blurb-row${isOpen ? ' open' : ''}" data-id="${b.id}">
+            ${b.year ? `<div class="blurb-year">${b.year}</div>` : ''}
+            <p>${b.blurb || 'No description available.'}</p>
+          </div>`;
+        }).join('');
       }
       document.getElementById('cnt').textContent = `${f.length} of ${books.length} books`;
       updateStats();
