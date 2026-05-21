@@ -19,8 +19,7 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Hind:wght@300;400;500;600;700&family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
 
-    <!-- Marked.js (unpkg - not blocked by Edge tracking prevention) -->
-    <script src="https://unpkg.com/marked@9/marked.min.js"></script>
+
 
     <style>
         /* ── Base / typography ── */
@@ -397,16 +396,10 @@
 
         // ── Helpers ─────────────────────────────────────────────────────────
 
-        /** Extract first H1 or first non-empty line as a display title */
-        function extractTitle(markdown, fileNum) {
-            const lines = markdown.split('\n');
-            for (const line of lines) {
-                const trimmed = line.trim();
-                if (!trimmed) continue;
-                // strip leading #s
-                const clean = trimmed.replace(/^#+\s*/, '');
-                if (clean) return clean;
-            }
+        /** Extract title from HTML snippet — first h1, h2, or h3 */
+        function extractTitle(html, fileNum) {
+            const match = html.match(/<h[123][^>]*>(.*?)<\/h[123]>/i);
+            if (match) return match[1].replace(/<[^>]+>/g, '').trim();
             return `Entry ${fileNum}`;
         }
 
@@ -437,7 +430,6 @@
             });
 
             const entry = entries[idx];
-            const html  = marked.parse(entry.raw);
 
             contentArea.innerHTML = `
                 <div class="blog-entry visible">
@@ -445,7 +437,7 @@
                         <span class="badge-entry">Entry ${entry.index}</span>
                     </div>
                     <div class="blog-card">
-                        <div class="md-content">${html}</div>
+                        <div class="md-content">${entry.raw}</div>
                         <div class="entry-nav-footer">
                             <button class="nav-arrow-btn" id="btn-prev" ${idx === 0 ? 'disabled' : ''}>← Previous</button>
                             <button class="nav-arrow-btn" id="btn-next" ${idx === entries.length - 1 ? 'disabled' : ''}>Next →</button>
@@ -460,9 +452,9 @@
             contentArea.scrollIntoView({ behavior: 'smooth', block: 'start' });
         }
 
-        /** Try to fetch a single numbered .md file; returns {ok, text} */
+        /** Try to fetch a single numbered .html file; returns {ok, text} */
         async function tryFetch(num) {
-            const url = `${FOLDER}/${num}.md`;
+            const url = `${FOLDER}/${num}.html`;
             try {
                 const res = await fetch(url);
                 if (!res.ok) return { ok: false };
@@ -492,12 +484,12 @@
             entries = await scanEntries();
 
             if (entries.length === 0) {
-                navContainer.innerHTML = '<p style="font-size:13px;color:#999;">No entries found.<br>Add <code>RiotGameBlog/1.md</code> to get started.</p>';
+                navContainer.innerHTML = '<p style="font-size:13px;color:#999;">No entries found.<br>Add <code>RiotGameBlog/1.html</code> to get started.</p>';
                 contentArea.innerHTML  = `
                     <div class="blog-card" style="text-align:center; padding:60px 40px; color:#aaa;">
                         <h4 style="font-family:Montserrat,sans-serif; color:#ccc;">No entries yet</h4>
-                        <p style="font-size:14px;">Place numbered Markdown files inside a folder called <strong>RiotGameBlog/</strong><br>
-                        next to this HTML file, e.g. <code>RiotGameBlog/1.md</code>, <code>RiotGameBlog/2.md</code>, …</p>
+                        <p style="font-size:14px;">Place numbered HTML snippets inside a folder called <strong>RiotGameBlog/</strong><br>
+                        next to this HTML file, e.g. <code>RiotGameBlog/1.html</code>, <code>RiotGameBlog/2.html</code>, …</p>
                     </div>`;
                 return;
             }
