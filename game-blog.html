@@ -1,0 +1,515 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Alexander Penny - Dev Blog</title>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="format-detection" content="telephone=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="author" content="Alexander Penny">
+    <meta name="description" content="Development Blog for Alexander Penny">
+
+    <!-- Bootstrap -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css">
+
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Hind:wght@300;400;500;600;700&family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
+
+    <!-- Marked.js for Markdown parsing -->
+    <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+
+    <style>
+        /* ── Base / typography ── */
+        :root {
+            --bs-primary: #0AA1D6;
+            --bs-secondary: #1a1a2e;
+        }
+
+        body {
+            font-family: 'Hind', sans-serif;
+            font-size: 16px;
+            color: #333;
+            background: #fff;
+        }
+
+        h1, h2, h3, h4, h5, h6, .navbar-brand {
+            font-family: 'Montserrat', sans-serif;
+        }
+
+        a { color: #0AA1D6; text-decoration: none; }
+        a:hover { color: #088ab8; }
+
+        /* ── Top bar ── */
+        .header-top { background: #1a1a2e !important; }
+        .header-top .text-white { font-size: 12px; }
+
+        /* ── Primary nav ── */
+        #primary-header { border-bottom: 1px solid #eee; }
+        .navbar-nav .nav-link {
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 600;
+            font-size: 13px;
+            letter-spacing: .5px;
+            text-transform: uppercase;
+            color: #222 !important;
+        }
+        .navbar-nav .nav-link:hover,
+        .navbar-nav .nav-link.active { color: #0AA1D6 !important; }
+        .dropdown-menu { border-radius: 0; }
+        .dropdown-item { font-family: 'Montserrat', sans-serif; font-size: 12px; font-weight: 600; letter-spacing: .5px; }
+
+        /* ── Page hero ── */
+        #blog-hero {
+            background: #1a1a2e;
+            padding: 60px 0 50px;
+            text-align: center;
+        }
+        #blog-hero h6 { color: #0AA1D6; font-size: 13px; letter-spacing: 2px; text-transform: uppercase; margin-bottom: 10px; }
+        #blog-hero h1 { color: #fff; font-weight: 800; font-size: 2.6rem; margin: 0; }
+
+        /* ── Blog layout ── */
+        #blog-body { padding: 60px 0 80px; }
+
+        /* ── Sidebar nav ── */
+        #entry-list { position: sticky; top: 20px; }
+        #entry-list h6 {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 11px;
+            letter-spacing: 1.5px;
+            text-transform: uppercase;
+            color: #999;
+            margin-bottom: 14px;
+        }
+        .entry-nav-btn {
+            display: block;
+            width: 100%;
+            text-align: left;
+            background: none;
+            border: none;
+            padding: 8px 14px;
+            border-radius: 4px;
+            font-family: 'Montserrat', sans-serif;
+            font-size: 12px;
+            font-weight: 600;
+            color: #555;
+            cursor: pointer;
+            transition: background .15s, color .15s;
+            margin-bottom: 4px;
+        }
+        .entry-nav-btn:hover { background: #f0f8fd; color: #0AA1D6; }
+        .entry-nav-btn.active { background: #0AA1D6; color: #fff; }
+        .entry-nav-btn .entry-num {
+            display: inline-block;
+            width: 24px;
+            height: 24px;
+            line-height: 24px;
+            text-align: center;
+            border-radius: 50%;
+            background: rgba(10,161,214,.15);
+            font-size: 11px;
+            margin-right: 8px;
+        }
+        .entry-nav-btn.active .entry-num { background: rgba(255,255,255,.25); }
+
+        /* ── Entry card ── */
+        .blog-entry {
+            display: none;
+            animation: fadeIn .3s ease;
+        }
+        .blog-entry.visible { display: block; }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(8px); }
+            to   { opacity: 1; transform: translateY(0); }
+        }
+
+        .blog-card {
+            border: 1px solid #eee;
+            border-radius: 8px;
+            padding: 40px 44px;
+            box-shadow: 0 2px 16px rgba(0,0,0,.05);
+        }
+
+        /* ── Markdown content styles ── */
+        .md-content h1 { font-size: 2rem; font-weight: 800; margin-bottom: 20px; color: #111; }
+        .md-content h2 { font-size: 1.45rem; font-weight: 700; margin-top: 36px; margin-bottom: 14px; color: #111; border-bottom: 2px solid #0AA1D6; padding-bottom: 6px; display: inline-block; }
+        .md-content h3 { font-size: 1.15rem; font-weight: 700; margin-top: 28px; color: #222; }
+        .md-content h4, .md-content h5, .md-content h6 { font-weight: 700; margin-top: 20px; color: #333; }
+        .md-content p { line-height: 1.85; margin-bottom: 18px; }
+        .md-content ul, .md-content ol { padding-left: 22px; margin-bottom: 18px; }
+        .md-content li { line-height: 1.75; margin-bottom: 6px; }
+        .md-content blockquote {
+            border-left: 4px solid #0AA1D6;
+            margin: 24px 0;
+            padding: 14px 20px;
+            background: #f4fbff;
+            color: #444;
+            font-style: italic;
+            border-radius: 0 6px 6px 0;
+        }
+        .md-content code {
+            background: #f1f3f5;
+            padding: 2px 6px;
+            border-radius: 3px;
+            font-size: .88em;
+            color: #c7254e;
+        }
+        .md-content pre {
+            background: #1a1a2e;
+            color: #e8e8e8;
+            padding: 20px 24px;
+            border-radius: 6px;
+            overflow-x: auto;
+            margin-bottom: 24px;
+        }
+        .md-content pre code { background: none; color: inherit; padding: 0; }
+        .md-content img { max-width: 100%; border-radius: 6px; margin: 16px 0; }
+        .md-content hr { border: none; border-top: 1px solid #eee; margin: 32px 0; }
+        .md-content table { width: 100%; border-collapse: collapse; margin-bottom: 24px; }
+        .md-content th { background: #1a1a2e; color: #fff; padding: 10px 14px; font-family: 'Montserrat', sans-serif; font-size: 12px; letter-spacing: .5px; }
+        .md-content td { padding: 10px 14px; border-bottom: 1px solid #eee; }
+        .md-content tr:hover td { background: #f9f9f9; }
+        .md-content a { color: #0AA1D6; text-decoration: underline; }
+
+        /* ── Entry meta strip ── */
+        .entry-meta {
+            font-size: 12px;
+            font-family: 'Montserrat', sans-serif;
+            color: #999;
+            letter-spacing: .5px;
+            margin-bottom: 28px;
+        }
+        .entry-meta span { margin-right: 16px; }
+        .entry-meta .badge-entry {
+            background: #0AA1D6;
+            color: #fff;
+            padding: 3px 10px;
+            border-radius: 20px;
+            font-size: 11px;
+        }
+
+        /* ── Prev / Next navigation ── */
+        .entry-nav-footer {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 36px;
+            padding-top: 24px;
+            border-top: 1px solid #eee;
+        }
+        .nav-arrow-btn {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 12px;
+            font-weight: 700;
+            letter-spacing: .5px;
+            text-transform: uppercase;
+            color: #0AA1D6;
+            background: none;
+            border: 2px solid #0AA1D6;
+            padding: 8px 20px;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: background .15s, color .15s;
+        }
+        .nav-arrow-btn:hover { background: #0AA1D6; color: #fff; }
+        .nav-arrow-btn:disabled { opacity: .3; cursor: not-allowed; }
+
+        /* ── Loading / error states ── */
+        .entry-loading {
+            text-align: center;
+            padding: 60px 0;
+            color: #aaa;
+            font-family: 'Montserrat', sans-serif;
+            font-size: 13px;
+            letter-spacing: 1px;
+        }
+        .entry-loading .spinner {
+            width: 32px; height: 32px;
+            border: 3px solid #eee;
+            border-top-color: #0AA1D6;
+            border-radius: 50%;
+            animation: spin .7s linear infinite;
+            margin: 0 auto 16px;
+        }
+        @keyframes spin { to { transform: rotate(360deg); } }
+
+        /* ── Footer ── */
+        #footer { background: #f8f9fa; }
+        #footer h5 { font-family: 'Montserrat', sans-serif; font-size: 13px; font-weight: 700; letter-spacing: 1px; text-transform: uppercase; }
+        #footer .nav-link { font-size: 13px; color: #555; }
+        #footer .nav-link:hover { color: #0AA1D6; }
+
+        /* ── Responsive ── */
+        @media (max-width: 767px) {
+            .blog-card { padding: 24px 20px; }
+            #entry-list { position: static; margin-bottom: 32px; }
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- SVG sprite -->
+    <svg xmlns="http://www.w3.org/2000/svg" style="display:none;">
+        <symbol id="location" viewBox="0 0 24 24">
+            <path fill="currentColor" d="M12 11.5A2.5 2.5 0 0 1 9.5 9A2.5 2.5 0 0 1 12 6.5A2.5 2.5 0 0 1 14.5 9a2.5 2.5 0 0 1-2.5 2.5M12 2a7 7 0 0 0-7 7c0 5.25 7 13 7 13s7-7.75 7-13a7 7 0 0 0-7-7"/>
+        </symbol>
+        <symbol id="navbar-icon" viewBox="0 0 16 16">
+            <path d="M14 10.5a.5.5 0 0 0-.5-.5h-3a.5.5 0 0 0 0 1h3a.5.5 0 0 0 .5-.5zm0-3a.5.5 0 0 0-.5-.5h-7a.5.5 0 0 0 0 1h7a.5.5 0 0 0 .5-.5zm0-3a.5.5 0 0 0-.5-.5h-11a.5.5 0 0 0 0 1h11a.5.5 0 0 0 .5-.5z"/>
+        </symbol>
+        <symbol id="chevron-left" viewBox="0 0 16 16">
+            <path fill="currentColor" fill-rule="evenodd" d="M11.354 1.646a.5.5 0 0 1 0 .708L5.707 8l5.647 5.646a.5.5 0 0 1-.708.708l-6-6a.5.5 0 0 1 0-.708l6-6a.5.5 0 0 1 .708 0z"/>
+        </symbol>
+    </svg>
+
+    <header id="header">
+        <!-- Top bar -->
+        <nav class="header-top bg-secondary py-1">
+            <div class="container">
+                <div class="d-flex flex-wrap justify-content-between align-items-center">
+                    <ul class="info d-flex flex-wrap list-unstyled m-0">
+                        <li class="text-white text-capitalize d-flex align-items-center me-4" style="font-size:12px;">
+                            <svg class="text-primary me-1" width="15" height="15"><use xlink:href="#location"></use></svg>
+                            Dundee
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+
+        <!-- Primary nav -->
+        <nav id="primary-header" class="navbar navbar-expand-lg py-3">
+            <div class="container">
+                <a class="navbar-brand" href="index.html">
+                    <img src="photos/logo.png" class="img-fluid" style="max-height:45px;" alt="logo" onerror="this.style.display='none'">
+                </a>
+                <button class="navbar-toggler border-0 d-flex d-lg-none order-3 p-2 shadow-none" type="button"
+                        data-bs-toggle="offcanvas" data-bs-target="#bdNavbar" aria-controls="bdNavbar" aria-expanded="false">
+                    <svg class="navbar-icon" width="60" height="60"><use xlink:href="#navbar-icon"></use></svg>
+                </button>
+                <div class="header-bottom offcanvas offcanvas-end" id="bdNavbar">
+                    <div class="offcanvas-header px-4 pb-0">
+                        <button type="button" class="btn-close btn-close-black mt-2" data-bs-dismiss="offcanvas" aria-label="Close" data-bs-target="#bdNavbar"></button>
+                    </div>
+                    <div class="offcanvas-body align-items-center justify-content-end">
+                        <ul class="navbar-nav align-items-center mb-2 mb-lg-0">
+                            <li class="nav-item px-3">
+                                <a class="nav-link p-0" href="index.html">Home</a>
+                            </li>
+                            <li class="nav-item px-3">
+                                <a class="nav-link active p-0" href="blog.html">Dev Blog</a>
+                            </li>
+                            <li class="nav-item px-3 dropdown">
+                                <a class="nav-link p-0 dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button" aria-expanded="false">External Links</a>
+                                <ul class="dropdown-menu dropdown-menu-end animate slide mt-3 border-0 shadow">
+                                    <li><a href="https://www.linkedin.com/in/alexander-penny-84621033b/" class="dropdown-item text-uppercase" target="_blank">LinkedIn</a></li>
+                                    <li><a href="https://alexanderpenny.itch.io/" class="dropdown-item text-uppercase" target="_blank">Itch.io</a></li>
+                                </ul>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <!-- Hero -->
+    <section id="blog-hero">
+        <div class="container">
+            <h6>Development Journal</h6>
+            <h1>Dev Blog</h1>
+        </div>
+    </section>
+
+    <!-- Blog body -->
+    <section id="blog-body">
+        <div class="container">
+            <div class="row">
+
+                <!-- Sidebar -->
+                <div class="col-lg-3 col-md-4 mb-5 mb-md-0">
+                    <div id="entry-list">
+                        <h6>Entries</h6>
+                        <div id="nav-buttons">
+                            <!-- populated by JS -->
+                            <div class="entry-loading">
+                                <div class="spinner"></div>
+                                Scanning entries…
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Main content -->
+                <div class="col-lg-9 col-md-8">
+                    <div id="blog-content">
+                        <div class="entry-loading">
+                            <div class="spinner"></div>
+                            Loading entry…
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <hr class="text-black">
+
+    <!-- Footer -->
+    <section id="footer">
+        <div class="container mt-5 pt-3">
+            <footer class="row my-5 py-5">
+                <div class="col-md-6 col-lg-3 mb-3 mb-lg-0">
+                    <ul class="nav flex-column">
+                        <li class="nav-item"><a href="https://alexanderpenny.itch.io/" class="nav-link text-uppercase p-0">Itch.io</a></li>
+                        <li class="nav-item"><a href="https://www.linkedin.com/in/alexander-penny-84621033b/" class="nav-link text-uppercase p-0">LinkedIn</a></li>
+                    </ul>
+                </div>
+            </footer>
+        </div>
+    </section>
+
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+
+    <script>
+    (function () {
+        'use strict';
+
+        // ── Config ──────────────────────────────────────────────────────────
+        const FOLDER   = 'RiotGameBlog';   // folder relative to this HTML file
+        const MAX_SCAN = 30;               // scan up to this number before stopping
+
+        // ── State ───────────────────────────────────────────────────────────
+        let entries      = [];   // [{index, title, raw}]
+        let currentIndex = 0;    // position within entries[]
+
+        // ── DOM refs ────────────────────────────────────────────────────────
+        const navContainer  = document.getElementById('nav-buttons');
+        const contentArea   = document.getElementById('blog-content');
+
+        // ── Helpers ─────────────────────────────────────────────────────────
+
+        /** Extract first H1 or first non-empty line as a display title */
+        function extractTitle(markdown, fileNum) {
+            const lines = markdown.split('\n');
+            for (const line of lines) {
+                const trimmed = line.trim();
+                if (!trimmed) continue;
+                // strip leading #s
+                const clean = trimmed.replace(/^#+\s*/, '');
+                if (clean) return clean;
+            }
+            return `Entry ${fileNum}`;
+        }
+
+        /** Render sidebar nav buttons */
+        function renderNav() {
+            navContainer.innerHTML = '';
+            if (entries.length === 0) {
+                navContainer.innerHTML = '<p style="font-size:13px;color:#999;">No entries found.</p>';
+                return;
+            }
+            entries.forEach((entry, idx) => {
+                const btn = document.createElement('button');
+                btn.className = 'entry-nav-btn' + (idx === currentIndex ? ' active' : '');
+                btn.innerHTML = `<span class="entry-num">${entry.index}</span>${entry.title}`;
+                btn.addEventListener('click', () => showEntry(idx));
+                navContainer.appendChild(btn);
+            });
+        }
+
+        /** Render the selected entry in the main content area */
+        function showEntry(idx) {
+            if (idx < 0 || idx >= entries.length) return;
+            currentIndex = idx;
+
+            // update sidebar active state
+            document.querySelectorAll('.entry-nav-btn').forEach((btn, i) => {
+                btn.classList.toggle('active', i === idx);
+            });
+
+            const entry = entries[idx];
+            const html  = marked.parse(entry.raw);
+
+            contentArea.innerHTML = `
+                <div class="blog-entry visible">
+                    <div class="entry-meta">
+                        <span class="badge-entry">Entry ${entry.index}</span>
+                    </div>
+                    <div class="blog-card">
+                        <div class="md-content">${html}</div>
+                        <div class="entry-nav-footer">
+                            <button class="nav-arrow-btn" id="btn-prev" ${idx === 0 ? 'disabled' : ''}>← Previous</button>
+                            <button class="nav-arrow-btn" id="btn-next" ${idx === entries.length - 1 ? 'disabled' : ''}>Next →</button>
+                        </div>
+                    </div>
+                </div>`;
+
+            document.getElementById('btn-prev').addEventListener('click', () => showEntry(currentIndex - 1));
+            document.getElementById('btn-next').addEventListener('click', () => showEntry(currentIndex + 1));
+
+            // scroll content into view smoothly
+            contentArea.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }
+
+        /** Try to fetch a single numbered .md file; returns {ok, text} */
+        async function tryFetch(num) {
+            const url = `${FOLDER}/${num}.md`;
+            try {
+                const res = await fetch(url);
+                if (!res.ok) return { ok: false };
+                const text = await res.text();
+                return { ok: true, text };
+            } catch {
+                return { ok: false };
+            }
+        }
+
+        /** Scan for existing files 1…MAX_SCAN, stopping on first gap */
+        async function scanEntries() {
+            contentArea.innerHTML = `<div class="entry-loading"><div class="spinner"></div>Scanning entries…</div>`;
+
+            let found = [];
+            for (let i = 1; i <= MAX_SCAN; i++) {
+                const result = await tryFetch(i);
+                if (!result.ok) break;            // stop on first missing file
+                found.push({ index: i, title: extractTitle(result.text, i), raw: result.text });
+            }
+
+            return found;
+        }
+
+        // ── Init ────────────────────────────────────────────────────────────
+        async function init() {
+            entries = await scanEntries();
+
+            if (entries.length === 0) {
+                navContainer.innerHTML = '<p style="font-size:13px;color:#999;">No entries found.<br>Add <code>RiotGameBlog/1.md</code> to get started.</p>';
+                contentArea.innerHTML  = `
+                    <div class="blog-card" style="text-align:center; padding:60px 40px; color:#aaa;">
+                        <h4 style="font-family:Montserrat,sans-serif; color:#ccc;">No entries yet</h4>
+                        <p style="font-size:14px;">Place numbered Markdown files inside a folder called <strong>RiotGameBlog/</strong><br>
+                        next to this HTML file, e.g. <code>RiotGameBlog/1.md</code>, <code>RiotGameBlog/2.md</code>, …</p>
+                    </div>`;
+                return;
+            }
+
+            renderNav();
+            showEntry(0);
+        }
+
+        // Footer year
+        document.getElementById('year').textContent = new Date().getFullYear();
+
+        // Kick off
+        init();
+    })();
+    </script>
+
+</body>
+</html>
