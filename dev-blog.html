@@ -448,6 +448,16 @@
             document.getElementById('btn-prev').addEventListener('click', () => showEntry(currentIndex - 1));
             document.getElementById('btn-next').addEventListener('click', () => showEntry(currentIndex + 1));
 
+            // Fix image paths — rewrite all relative src to full path from site root
+            contentArea.querySelectorAll('img').forEach(img => {
+                const src = img.getAttribute('src');
+                if (src && !src.startsWith('http') && !src.startsWith('//')) {
+                    // Strip any leading folder prefix to avoid doubling, then rebuild
+                    const stripped = src.replace(/^RiotGameBlog\//, '');
+                    img.setAttribute('src', `RiotGameBlog/${stripped}`);
+                }
+            });
+
             // scroll content into view smoothly
             contentArea.scrollIntoView({ behavior: 'smooth', block: 'start' });
         }
