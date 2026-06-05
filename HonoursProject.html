@@ -409,12 +409,68 @@
     </section>-->
     <section class="padding-medium">
         <div class="container">
-            <div class="row align-items-center">
-                <h5 class="text-center text-primary">Honours Project</h5>
-                <p class="text-center display-5 fw-bold mb-3">LinkedIn Embed: <a href="https://www.linkedin.com/posts/alexander-penny-84621033b_here-is-a-peek-at-what-ive-been-doing-over-activity-7437501843632676864-tBKD?utm_source=share&utm_medium=member_desktop&rcm=ACoAAFVIXbYB_JA7uXA9K7HuzTcV32c7xKvQKUg">(or view here)</a></a></p>
-                <iframe src="https://www.linkedin.com/embed/feed/update/urn:li:ugcPost:7437501766868369408" height="852" width="504" frameborder="0" allowfullscreen="" title="Embedded post"></iframe>
-                <a class="btn btn-primary mt-4" href="https://github.com/AlexanderPenny/self-driving-collision-avoidance" target="_blank">See the GitHub Repository</a>
-                <a class="btn btn-primary mt-4" href="index.html#projects">Go Back to the Projects List</a>
+            <div class="row align-items-center g-5">
+                <div class="col-lg-6">
+                    <h5 class="text-primary">Honours Project</h5>
+                    <h3 class="display-5 fw-bold mb-3">Self Driving Collision Avoidance Project for CMP400 at Abertay University</h3>
+                    <p><em>Beware that installing this can leave a little Linux penguin in your Windows File Explorer that is hard to get rid of.</em></p>
+
+                    <h6 class="text-primary mt-4">Note if you wish to start a new model to train using this</h6>
+                    <p>
+                        This project uses a default model when running this, and is ordinarily configured to use this model to train.
+                        If you wish to train a new model, uncomment-out lines 1458 to 1463 in <code>cmpfourhundred_manual_control.py</code> and on line 149,
+                        change <code>LOADING_MODEL</code> to <code>False</code> to create a new model.
+                    </p>
+
+                    <h6 class="text-primary mt-4">Parts of note</h6>
+                    <p>
+                        The <code>cmpfourhundred_manual_control.py</code> is based off of
+                        <a class="text-primary text-decoration-underline" href="https://github.com/carla-simulator/carla/blob/ue5-dev/PythonAPI/examples/manual_control.py" target="_blank"><code>manual_control.py</code></a>
+                        given in the examples folder of a CARLA distribution for version 0.10.0. The other python files attached to the repo have been built from the ground up.
+                    </p>
+                    <p>
+                        Everything pertaining to the actual RL takes place in <code>manual_control</code> and <code>RL_2ndtry</code>,
+                        which is named this since it was the 2ndtry file, which ended up keeping its name.
+                    </p>
+                    <p>The instructions on how to run this program are included in the <code>readme.html</code>.</p>
+
+                    <h6 class="text-primary mt-4">Download the release for a working project</h6>
+                    <p>This is due to some files being too big to host on GitHub.</p>
+
+                    <h6 class="text-primary mt-4">License</h6>
+                    <p class="mt-4 mb-0">
+                        Licensing for this repository is unknown. This work was developed as part of an Abertay University honours project, completed in 2026.
+                    </p>
+                    <div class="d-flex flex-wrap gap-3 mt-4">
+                        <a class="btn btn-primary d-inline-flex align-items-center gap-2" href="https://github.com/AlexanderPenny/self-driving-collision-avoidance" target="_blank">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" focusable="false">
+                                <path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0 0 24 12c0-6.63-5.37-12-12-12z" />
+                            </svg>
+                            See the GitHub Repository
+                        </a>
+                        <a class="btn btn-primary d-inline-flex align-items-center gap-2" href="https://drive.google.com/file/d/1zP6oQjgh3uCDOoJi6YKLKfDTqwNMp5MC/view" target="_blank">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 87.3 78" aria-hidden="true" focusable="false">
+                                <path fill="currentColor" d="M6.6 66.9 10.8 74c.9 1.6 2.3 2.8 3.9 3.5l15-26H0c0 1.8.5 3.6 1.4 5.2l5.2 10.2z" />
+                                <path fill="currentColor" d="M43.6 25.9 28.6 0c-1.6.7-3 1.9-3.9 3.5L1.4 43.8C.5 45.4 0 47.2 0 49h30l13.6-23.1z" />
+                                <path fill="currentColor" d="M72.6 77.5c1.6-.7 3-1.9 3.9-3.5l1.7-2.9 7.7-14.4c.9-1.6 1.4-3.4 1.4-5.2H57.4l6.4 12.6 8.8 13.4z" />
+                                <path fill="currentColor" d="M43.6 25.9 58.6 0c-1.6-.7-3.4-1-5.2-1H33.8c-1.8 0-3.6.3-5.2 1l15 25.9z" />
+                                <path fill="currentColor" d="m57.4 51.5-13.8 24 14.1.1h15c-1.6.7-3.4 1-5.2 1H19.8c-1.8 0-3.6-.3-5.2-1l15-26h27.8z" />
+                                <path fill="currentColor" d="M72.4 27.4 60.7 7.1C59.8 5.5 58.4 4.3 56.8 3.6l-15 25.9 15 26h30c0-1.8-.5-3.6-1.4-5.2l-13-22.9z" />
+                            </svg>
+                            Download the Release
+                        </a>
+                        <a class="btn btn-outline-primary" href="index.html#projects">Go Back to the Projects List</a>
+                    </div>
+                </div>
+                <div class="col-lg-5 offset-lg-1">
+                    <h6 class="text-primary">Project Update</h6>
+                    <p class="mb-3">
+                        <a class="text-primary text-decoration-underline" href="https://www.linkedin.com/posts/alexander-penny-84621033b_here-is-a-peek-at-what-ive-been-doing-over-activity-7437501843632676864-tBKD?utm_source=share&utm_medium=member_desktop&rcm=ACoAAFVIXbYB_JA7uXA9K7HuzTcV32c7xKvQKUg" target="_blank">View the LinkedIn post directly</a>
+                    </p>
+                    <div class="imageblock position-relative mx-auto" style="max-width: 504px;">
+                        <iframe src="https://www.linkedin.com/embed/feed/update/urn:li:ugcPost:7437501766868369408" height="852" width="504" frameborder="0" allowfullscreen="" title="LinkedIn post for the self-driving collision avoidance honours project" style="width: 100%; max-width: 504px; border: 0;"></iframe>
+                    </div>
+                </div>
             </div>
         </div>
     </section>
