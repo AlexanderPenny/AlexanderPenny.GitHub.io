@@ -108,25 +108,40 @@
         layoutMode: 'masonry',
       });
 
-      $(document).ready(function () {
-        //active button
-        $('.filter-button').click(function () {
-          $('.filter-button').removeClass('active');
-          $(this).addClass('active');
-        });
+      var $filterButtons = $('.filter-button');
+      var $hashFilterButtons = $('.filter-button[data-filter-hash]');
+
+      function applyFilter($button, updateHash) {
+        if (!$button.length) return;
+
+        $filterButtons.removeClass('active');
+        $button.addClass('active');
+        $container.isotope({ filter: $button.attr('data-filter') });
+
+        var filterHash = $button.attr('data-filter-hash');
+        if (updateHash && filterHash && window.location.hash !== filterHash) {
+          history.pushState(null, '', filterHash);
+        }
+      }
+
+      function applyHashFilter() {
+        if (!$hashFilterButtons.length) return;
+
+        var $button = $hashFilterButtons.filter('[data-filter-hash="' + window.location.hash + '"]');
+        if (!$button.length && !window.location.hash) {
+          $button = $hashFilterButtons.filter('[data-filter-hash="#1"]');
+        }
+
+        applyFilter($button, false);
+      }
+
+      $filterButtons.click(function () {
+        applyFilter($(this), true);
       });
 
-      // Filter items on button click
-      $('.filter-button').click(function () {
-        var filterValue = $(this).attr('data-filter');
-        if (filterValue === '*') {
-          // Show all items
-          $container.isotope({ filter: '*' });
-        } else {
-          // Show filtered items
-          $container.isotope({ filter: filterValue });
-        }
-      });
+      window.addEventListener('hashchange', applyHashFilter);
+      window.addEventListener('popstate', applyHashFilter);
+      applyHashFilter();
 
     });
 
