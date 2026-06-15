@@ -319,6 +319,7 @@
     <!-- Hero -->
     <section id="blog-hero">
         <div class="container">
+            <a class="btn btn-outline-light mb-4" href="riot-game.html">&larr; Back to Game Page</a>
             <h6>Development Journal</h6>
             <h1>Dev Blog</h1>
         </div>
@@ -405,6 +406,25 @@
             return `Entry ${fileNum}`;
         }
 
+        /** Find the position of the entry identified by the URL hash */
+        function getEntryIndexFromHash() {
+            const entryNumber = window.location.hash.slice(1);
+            if (!/^\d+$/.test(entryNumber)) return -1;
+            return entries.findIndex(entry => entry.index === Number(entryNumber));
+        }
+
+        /** Execute scripts included by the currently displayed entry */
+        function runEntryScripts(container) {
+            container.querySelectorAll('script').forEach(oldScript => {
+                const newScript = document.createElement('script');
+                Array.from(oldScript.attributes).forEach(attribute => {
+                    newScript.setAttribute(attribute.name, attribute.value);
+                });
+                newScript.textContent = oldScript.textContent;
+                oldScript.replaceWith(newScript);
+            });
+        }
+
         /** Render sidebar nav buttons */
         function renderNav() {
             navContainer.innerHTML = '';
@@ -422,7 +442,7 @@
         }
 
         /** Render the selected entry in the main content area */
-        function showEntry(idx) {
+        function showEntry(idx, updateHash = true) {
             if (idx < 0 || idx >= entries.length) return;
             currentIndex = idx;
 
@@ -432,6 +452,10 @@
             });
 
             const entry = entries[idx];
+
+            if (updateHash && window.location.hash !== `#${entry.index}`) {
+                history.pushState(null, '', `#${entry.index}`);
+            }
 
             contentArea.innerHTML = `
                 <div class="blog-entry visible">
@@ -450,7 +474,6 @@
             document.getElementById('btn-prev').addEventListener('click', () => showEntry(currentIndex - 1));
             document.getElementById('btn-next').addEventListener('click', () => showEntry(currentIndex + 1));
 
-            // Fix image paths — rewrite all relative src to full path from site root
             contentArea.querySelectorAll('img').forEach(img => {
                 const src = img.getAttribute('src');
                 if (src && !src.startsWith('http') && !src.startsWith('//')) {
@@ -459,6 +482,8 @@
                     img.setAttribute('src', `RiotGameBlog/${stripped}`);
                 }
             });
+
+            runEntryScripts(contentArea);
 
             // scroll content into view smoothly
             contentArea.scrollIntoView({ behavior: 'smooth', block: 'start' });
@@ -507,8 +532,20 @@
             }
 
             renderNav();
-            showEntry(0);
+            const hashIndex = getEntryIndexFromHash();
+            showEntry(hashIndex >= 0 ? hashIndex : 0, false);
         }
+
+        function showHashedEntry() {
+            const hashIndex = getEntryIndexFromHash();
+            const targetIndex = hashIndex >= 0 ? hashIndex : 0;
+            if (targetIndex !== currentIndex) {
+                showEntry(targetIndex, false);
+            }
+        }
+
+        window.addEventListener('hashchange', showHashedEntry);
+        window.addEventListener('popstate', showHashedEntry);
 
         // Footer year
         const yearEl = document.getElementById('year');

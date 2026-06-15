@@ -1,0 +1,94 @@
+<h1>Development Diary 2 - Further Development</h1>
+
+<p><em>Date: 13/06/2026</em> <em>(DD/MM/YYYY)</em></p>
+
+<h2>Team Members</h2>
+
+<blockquote class="twitter-tweet"><p lang="en" dir="ltr">The game development is still ongoing! On top of the artist, we have a new team member! A GDP Student from <a href="https://x.com/hashtag/AbertayUniversity?src=hash&amp;ref_src=twsrc%5Etfw">#AbertayUniversity</a> - also a new (about to be) Graduate! He will help out with design and other such tasks. Look forward to the development diary planned for next week!</p>&mdash; Riot Response Game (@Riot_Response) <a href="https://x.com/Riot_Response/status/2062953825913221586?ref_src=twsrc%5Etfw">June 5, 2026</a></blockquote>
+<script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
+
+<ul>
+    <li>
+        <strong>Alexander Penny</strong> (Sole Programmer, Producer, Creative Director)<br>
+        <a href="https://github.com/AlexanderPenny" target="_blank" rel="noopener noreferrer">GitHub</a> |
+        <a href="https://www.linkedin.com/in/alexander-penny-84621033b/" target="_blank" rel="noopener noreferrer">LinkedIn</a> |
+        <a href="https://alexanderpenny.github.io/" target="_blank" rel="noopener noreferrer">Portfolio</a>
+    </li>
+    <li>
+        <strong>Debashrita Ujwal Chand</strong> (Lead and currently sole Artist)<br>
+        <a href="https://www.linkedin.com/in/debashrita-ujwal-chand-319481152/" target="_blank" rel="noopener noreferrer">LinkedIn</a> |
+        <a href="https://www.therookies.co/u/DebuChand" target="_blank" rel="noopener noreferrer">Portfolio</a>
+    </li>
+    <li>
+        <strong>Ilan Frasca</strong> (Storyline Director, Map Designer, General Implementation Helper)<br>
+        <a href="https://www.linkedin.com/in/ilan-frasca-14a6242a7/" target="_blank" rel="noopener noreferrer">LinkedIn</a>
+    </li>
+</ul>
+
+<h2>Programming Progress</h2>
+
+<h3>Programming Progress Overview</h3>
+
+<ul>
+    <li>Added riot officer health bars that hide at maximum health.</li>
+    <li>Fixed protesters clipping into walls.</li>
+    <li>Added prototype map zones and zone-awareness systems.</li>
+    <li>Implemented multi-unit selection, formation movement, and movement orders.</li>
+    <li>Added queued movement orders for police officers and vehicles.</li>
+    <li>Implemented multi-team frontline drawing.</li>
+    <li>Progressed riot police versus protester AI mechanics.</li>
+    <li>Created a shared parent class for police officers and vehicles.</li>
+    <li>Updated and expanded the game world/map.</li>
+</ul>
+
+<h3>Start of the Health Bar Implementation</h3>
+
+<p><em>Figure 1</em></p>
+
+<img src="RiotGameBlog/media/dev2_figure1.png" alt="Protesters showing aggression toward riot police with visible health bars">
+
+<p>Health bar implementation, as shown in this screenshot, has been added. This photo is from the demonstration of the protester aggression toward the riot police mechanic. At this moment in time, the health bars do not show if health is full. However, they will show if health is not full, to keep the screen uncluttered while displaying the information where necessary.</p>
+
+<p>Depending on future development, I may find it better to only show health above a certain level when the team is being hovered over. As more riot police are added during development toward a fully playable prototype, this current system may become too visually cluttered, especially with the future implementation of riot police models.</p>
+
+<h3>Aggression and Interactions Between Police and Protesters</h3>
+
+<p>There are three states of aggression that have been programmed into the game so far, based on a "stress" value.</p>
+
+<p>The protesters can be in the following states, in order:</p>
+
+<ul>
+    <li><strong>No Stress:</strong> No aggression is shown toward riot police.</li>
+    <li><strong>Aggressive:</strong> The next step up in stress level, where protesters move toward the police and keep a distance. This is an intermediary stage where it is still peaceful but starting to become aggressive, for whatever reason.</li>
+    <li><strong>Attacking:</strong> Protesters will attack the police, as shown in Figure 2.</li>
+</ul>
+
+<p><em>Figure 2</em></p>
+
+<img src="RiotGameBlog/media/dev2_figure2.png" alt="Protesters attacking riot police">
+
+<p>At this attacking stage, different protesters can be at different stress levels. However, I will likely implement a system, for which I have not fully decided the architecture yet, where the protester AIs may affect each other's stress levels.</p>
+
+<h3>Zone Detection System</h3>
+
+<p><em>Figure 3</em></p>
+
+<img src="RiotGameBlog/media/dev2_figure3.png" alt="Prototype map zone detection layout">
+
+<p>As seen above, this is the zone layout used for detection.</p>
+
+<p>I opted for this system for reasons of computational efficiency. As this game intends to have many different and individually operating NPCs at once, checking for other NPCs fitting a description every second, or likely more often than that, would be far too computationally intense for more than 700 NPCs.</p>
+
+<p>Instead, a zone system is used, where each zone has a list of the NPCs within it. Each zone, as has been thankfully linked up and drawn by Ilan Frasca, contains knowledge of which zones are next to it. All an NPC needs to do is query the zone it knows it is in, then query the neighbouring zones for the NPCs registered to any of those zones. This forms the NPC's perception.</p>
+
+<p>This also effectively manages NPCs by ensuring that they are not able to see through walls.</p>
+
+<h2>Art Progress</h2>
+
+<p><em>Figure 4</em></p>
+
+<img src="RiotGameBlog/media/dev2_figure4.png" alt="Work in progress riot police art models">
+
+<p>These are work in progress art models for the game. This image shows the current progress of the riot police models.</p>
+
+<p><a href="https://upload.wikimedia.org/wikipedia/commons/thumb/e/ec/CRS_tenue_maintien_ordre_p1200484.jpg/960px-CRS_tenue_maintien_ordre_p1200484.jpg" target="_blank" rel="noopener noreferrer">This Wikimedia image</a> shows an image of what some riot officers can look like.</p>
