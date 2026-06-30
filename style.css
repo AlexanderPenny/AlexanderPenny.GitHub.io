@@ -643,6 +643,21 @@ button.filter-button:hover {
   font-size: 1.12rem;
 }
 
+.platform-chip-apple {
+  min-width: 1.75rem;
+  width: 1.75rem;
+  height: 1.75rem;
+}
+
+.platform-chip-apple iconify-icon {
+  width: 1.34rem;
+  height: 1.34rem;
+  font-size: 1.34rem;
+  top: 50%;
+  left: 50%;
+  transform: translate(-38%, -50%);
+}
+
 /*----------------------------------------------*/
 /* 5 PAGES STYLE */
 /*----------------------------------------------*/
