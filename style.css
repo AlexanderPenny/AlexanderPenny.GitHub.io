@@ -759,3 +759,14 @@ iconify-icon.quote {
   background-color: transparent;
   box-shadow: none;
 }
+
+/* Contact link (topbar)
+------------------------------------------------------------- */
+.social-links {
+  align-items: center;
+}
+
+.contact-link {
+  display: flex;
+  align-items: center;
+}
