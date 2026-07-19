@@ -592,6 +592,12 @@ button.filter-button:hover {
   background: var(--primary-color);
 }
 
+.isotope-container .item > a > img.img-fluid {
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  object-fit: cover;
+}
+
 .platform-strip {
   display: flex;
   justify-content: flex-end;
