@@ -664,6 +664,51 @@ button.filter-button:hover {
   transform: translate(-38%, -50%);
 }
 
+/*--------------------------------------------------------------
+4.x Project status tags
+--------------------------------------------------------------*/
+
+.status-tag {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
+  padding: 0.4rem 0.8rem;
+  border-radius: 999px;
+  font-family: 'Montserrat', sans-serif;
+  font-size: 0.68rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  line-height: 1;
+  text-transform: uppercase;
+  white-space: nowrap;
+}
+
+.status-tag::before {
+  content: '';
+  width: 0.4rem;
+  height: 0.4rem;
+  border-radius: 50%;
+  background: currentColor;
+  opacity: 0.65;
+  flex: 0 0 auto;
+}
+
+.status-tag-shelved {
+  color: #241c00;
+  background: linear-gradient(135deg, #ffe066 0%, #ffc300 100%);
+  border: 1px solid rgba(255, 255, 255, 0.5);
+  box-shadow: 0 0.4rem 1.1rem rgba(255, 193, 7, 0.3);
+}
+
+/* Corner overlay variant, for use on top of a project card image */
+.status-tag-overlay {
+  position: absolute;
+  top: 1rem;
+  left: 1rem;
+  z-index: 3;
+  backdrop-filter: blur(2px);
+}
+
 /*----------------------------------------------*/
 /* 5 PAGES STYLE */
 /*----------------------------------------------*/
