@@ -30,99 +30,63 @@ body::before {
 }
 
 /* --------------------------------------------------------------------------
-   Header: one floating rounded glass block (navy strip + white glass bar)
-   that stays at the top. js/glass.js adds .is-scrolled after you scroll
-   down, which folds away the navy strip and slims the bar.
-
-   The blur sits on ::before layers, not on the bars themselves: a
-   backdrop-filter on #primary-header would trap the phone menu (offcanvas,
-   position: fixed) inside the header's box.
+   Top bar: copied from apenny.me.uk's homepage so every site has the same
+   floating navy pill (Home / Portfolio / LinkedIn / Resources / Contact).
    -------------------------------------------------------------------------- */
-#header {
+/* ---------- top bar: floating tinted-glass pill, stays at the top while scrolling ---------- */
+.topbar {
   position: sticky;
   top: 12px;
-  z-index: 1041; /* above Bootstrap's offcanvas backdrop (1040) so the phone menu isn't dimmed */
-  width: calc(100% - 24px);
-  max-width: 1320px;
-  margin: 12px auto 0;
+  z-index: 1030; /* above Bootstrap content */
+  margin-top: 12px;
+  padding: 0 20px;
+}
+.topbar-inner {
+  max-width: 1296px; /* portfolio content width (homepage: 660px) */
+  margin: 0 auto;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 4px 20px;
+  padding: 10px 20px;
   border-radius: 20px;
-  box-shadow: 0 8px 24px rgba(11, 48, 110, 0.12);
-}
-#header .header-top,
-#header #primary-header {
-  position: relative;
-  background: transparent !important;
-}
-#header .header-top::before,
-#header #primary-header::before {
-  content: "";
-  position: absolute;
-  inset: 0;
-  z-index: -1;
-  border-radius: inherit;
+  background: rgba(11, 48, 110, 0.84);
   -webkit-backdrop-filter: var(--glass-blur);
   backdrop-filter: var(--glass-blur);
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  box-shadow: 0 8px 24px rgba(11, 48, 110, 0.18), inset 0 1px 0 rgba(255, 255, 255, 0.12);
 }
-#header .header-top {
-  border-radius: 20px 20px 0 0;
-  max-height: 60px;
-  overflow: hidden;
-  transition: max-height 0.3s ease, padding 0.3s ease, opacity 0.3s ease;
+.topbar a {
+  color: rgba(255, 255, 255, 0.78);
+  text-decoration: none;
+  text-transform: uppercase;
+  font-family: var(--heading-font);
+  font-size: 12px;
+  font-weight: 500;
+  letter-spacing: 0.06em;
+  line-height: 18px;
+  transition: color 0.3s ease-in-out;
 }
-#header .header-top::before { background: rgba(11, 48, 110, 0.84); }
-#header #primary-header {
-  border-radius: 0 0 20px 20px;
-  transition: padding 0.3s ease, border-radius 0.3s ease;
+.topbar a:hover, .topbar a:focus-visible { color: var(--primary-color); }
+/* The page you're on: bold and full white. Same height as the others. */
+.topbar a[aria-current="page"] { color: #fff; font-weight: 700; }
+/* Phones: tighter so all five links stay on one line. */
+@media (max-width: 480px) {
+  .topbar { padding: 0 8px; }
+  .topbar-inner { gap: 4px 6px; padding: 9px 12px; justify-content: space-between; }
+  .topbar a { font-size: 10px; letter-spacing: 0.01em; }
 }
-#header #primary-header::before {
-  background: rgba(255, 255, 255, 0.62);
-  border: 1px solid var(--glass-border);
-  border-top: 0;
+/* Smallest phones (320-360px). */
+@media (max-width: 360px) {
+  .topbar { padding: 0 6px; }
+  .topbar-inner { gap: 4px 4px; padding: 9px 10px; }
+  .topbar a { font-size: 9.5px; letter-spacing: 0; }
 }
-/* Name as text (replaced photos/logo.png): same style as "Get in Touch" on apenny.me.uk. */
-#header .brand-text {
-  font-family: var(--heading-font, "Montserrat", sans-serif);
-  font-weight: 700;
-  font-size: clamp(22px, 3vw, 30px);
-  letter-spacing: -0.02em;
-  line-height: 1.1;
-  color: var(--black-color, #1A2A36);
-  white-space: nowrap;
-  transition: font-size 0.3s ease;
-}
-#header .brand-text span { color: var(--primary-color, #0AA1D6); }
 
-/* Scrolled: strip folds away, bar slims down, all four corners rounded. */
-#header.is-scrolled .header-top {
-  max-height: 0;
-  padding-top: 0 !important;
-  padding-bottom: 0 !important;
-  opacity: 0;
-}
-#header.is-scrolled #primary-header {
-  padding-top: 0.35rem !important;
-  padding-bottom: 0.35rem !important;
-  border-radius: 20px;
-}
-#header.is-scrolled #primary-header::before { border-top: 1px solid var(--glass-border); }
-#header.is-scrolled .brand-text { font-size: clamp(18px, 2.2vw, 22px); }
 
-/* Dropdown ("External links") and the phone slide-out menu. */
-#header .dropdown-menu {
-  background: rgba(255, 255, 255, 0.82);
-  -webkit-backdrop-filter: var(--glass-blur);
-  backdrop-filter: var(--glass-blur);
-  border-radius: 14px;
-  overflow: hidden;
-}
-@media (max-width: 991.98px) {
-  #header .offcanvas {
-    background: rgba(255, 255, 255, 0.82);
-    -webkit-backdrop-filter: var(--glass-blur);
-    backdrop-filter: var(--glass-blur);
-    border-radius: 20px 0 0 20px;
-  }
-}
+/* Portfolio only: the old header was ~136px tall and pages were spaced for it;
+   keep a little room between the bar and the first section. */
+.topbar { margin-bottom: 28px; }
 
 /* --------------------------------------------------------------------------
    Content
@@ -161,34 +125,44 @@ section video {
   border-radius: 16px;
 }
 
-/* Footer as a glass card. */
-#footer .footer-container {
+/* Footer: same as apenny.me.uk (centred, small, no card) plus the homepage's
+   glass icon buttons for GitHub / itch.io / LinkedIn. */
+.site-footer {
+  margin: 40px auto 32px;
+  text-align: center;
+  color: var(--dark-color);
+  font-size: 14px;
+}
+.site-footer p { margin: 14px 0 0; color: inherit; }
+.footer-social { display: flex; justify-content: center; gap: 8px; }
+.footer-social a {
+  display: grid;
+  place-items: center;
+  width: 42px; height: 42px;
+  border: 1px solid var(--glass-border);
+  border-radius: 12px;
+  color: var(--black-color);
   background: var(--glass-bg);
   -webkit-backdrop-filter: var(--glass-blur);
   backdrop-filter: var(--glass-blur);
-  border: 1px solid var(--glass-border);
-  border-radius: 24px;
   box-shadow: var(--glass-shadow);
-  margin-bottom: 24px;
+  transition: all 0.3s ease-in-out;
 }
+.footer-social a:hover, .footer-social a:focus-visible {
+  color: #fff;
+  background: var(--primary-color);
+  border-color: var(--primary-color);
+}
+
+/* The section above the footer doesn't need its full 10em bottom padding. */
+section.padding-medium:has(+ .site-footer) { padding-bottom: 3em !important; }
 
 /* No blur available, or the visitor asked for less transparency: solid versions. */
 @supports not ((backdrop-filter: blur(1px)) or (-webkit-backdrop-filter: blur(1px))) {
   :root { --glass-bg: rgba(255, 255, 255, 0.94); }
-  #header .header-top::before { background: var(--secondary-color); }
-  #header #primary-header::before,
-  #header .dropdown-menu,
-  #header .offcanvas { background: #fff; }
+  .topbar-inner { background: var(--secondary-color); }
 }
 @media (prefers-reduced-transparency: reduce) {
   :root { --glass-bg: #fff; }
-  #header .header-top::before { background: var(--secondary-color); }
-  #header #primary-header::before,
-  #header .dropdown-menu,
-  #header .offcanvas { background: #fff; }
-}
-@media (prefers-reduced-motion: reduce) {
-  #header .header-top,
-  #header #primary-header,
-  #header .brand-text { transition: none; }
+  .topbar-inner { background: var(--secondary-color); }
 }
