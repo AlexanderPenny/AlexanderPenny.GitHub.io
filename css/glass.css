@@ -34,6 +34,8 @@ body::before {
    floating navy pill (Home / Portfolio / LinkedIn / Resources / Contact).
    -------------------------------------------------------------------------- */
 /* ---------- top bar: floating tinted-glass pill, stays at the top while scrolling ---------- */
+/* Reserve the scrollbar space so the bar sits in the same place on short and long pages. */
+html { scrollbar-gutter: stable; }
 .topbar {
   position: sticky;
   top: 12px;
@@ -42,7 +44,7 @@ body::before {
   padding: 0 20px;
 }
 .topbar-inner {
-  max-width: 1296px; /* portfolio content width (homepage: 660px) */
+  max-width: 660px; /* same as apenny.me.uk, so the bar doesn't move between sites */
   margin: 0 auto;
   display: flex;
   flex-wrap: wrap;
