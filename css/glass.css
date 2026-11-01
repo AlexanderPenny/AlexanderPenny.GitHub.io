@@ -166,3 +166,8 @@ section.padding-medium:has(+ .site-footer) { padding-bottom: 3em !important; }
   :root { --glass-bg: #fff; }
   .topbar-inner { background: var(--secondary-color); }
 }
+
+/* LinkedIn post embed (Honours page): tall enough to show the whole post
+   without an inner scrollbar. The post wraps onto more lines on narrow screens. */
+.linkedin-embed { height: 905px; }
+@media (max-width: 480px) { .linkedin-embed { height: 990px; } }
