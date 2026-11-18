@@ -135,7 +135,7 @@
                 <span class="badge bg-secondary">JavaScript</span><span class="badge bg-secondary">Shell</span><span class="badge bg-secondary">Node.js</span><span class="badge bg-secondary">Express</span>
             </div>
             <p>
-                Mostly just a fun project, but one that actually turned out handy. I got tired of leaning on third party image hosts every time I wanted to link someone a screenshot, so I built my own small self hosted image host called contactsheet. It runs on a Raspberry Pi behind Caddy, you upload an image through a login protected panel and get back a short, hard to guess address you can paste anywhere, and any image can be flipped to private if it's not meant to be public.
+                I built this one for real, everyday use. I got tired of leaning on third party image hosts every time I wanted to link someone a screenshot, so I made my own small self hosted image host called contactsheet, and it's what I use for that now. It runs on a Raspberry Pi behind Caddy, you upload an image through a login protected panel and get back a short, hard to guess address you can paste anywhere, and any image can be flipped to private if it's not meant to be public.
                 <br /><br />
                 It's deliberately low tech under the hood, just Express, multer and better sqlite3 with no build step and no framework, but I still wanted it to hold up if someone poked at the login page, so it comes with a proper install script, a systemd service and fail2ban filters for both the app and the reverse proxy.
             </p>
